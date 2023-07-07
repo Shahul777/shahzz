@@ -1,4 +1,15 @@
-
+gradient_colors = [
+    ["#FF0000", "#FF4040", "#FF7373", "#FFA6A6", "#FFD9D9", "#FFFFFF"],  # Red
+    ["#0000FF", "#4040FF", "#7373FF", "#A6A6FF", "#D9D9FF", "#FFFFFF"],  # Blue
+    ["#00FF00", "#40FF40", "#73FF73", "#A6FFA6", "#D9FFD9", "#FFFFFF"],  # Green
+    ["#FFFF00", "#FFFF40", "#FFFF73", "#FFFFA6", "#FFFFD9", "#FFFFFF"],  # Yellow
+    ["#800080", "#A040FF", "#C673FF", "#D9A6FF", "#ECD9FF", "#FFFFFF"],  # Purple
+    ["#FFA500", "#FFAD40", "#FFBE73", "#FFCEA6", "#FFDEDD", "#FFFFFF"],  # Orange
+    ["#FF00FF", "#FF40FF", "#FF73FF", "#FFA6FF", "#FFD9FF", "#FFFFFF"],  # Magenta
+    ["#00FFFF", "#40FFFF", "#73FFFF", "#A6FFFF", "#D9FFFF", "#FFFFFF"],  # Cyan
+    ["#FFFF80", "#FFFF9F", "#FFFFBF", "#FFFFDF", "#FFFFEF", "#FFFFFF"],  # Light Yellow
+    ["#008080", "#40A6A6", "#73CCCC", "#A6E2E2", "#D9F7F7", "#FFFFFF"],  # Teal
+]
 gradient_colors = [
     ["#FF0000", "#FF2A2A", "#FF5555", "#FF7F7F", "#FFAAAA", "#FFD4D4", "#FFF9F9", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Red
     ["#0000FF", "#2A2AFF", "#5555FF", "#7F7FFF", "#AAAAFF", "#D4D4FF", "#F9F9FF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Blue
