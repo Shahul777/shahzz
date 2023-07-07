@@ -1,3 +1,10 @@
+for (let i = 0; i < numColors; i++) {
+      const density = i / (numColors - 1);
+      const index = Math.round(density * (numColors - 1));
+      this.colorScheme[i] = this.setAlpha(this.colorScheme[index], density);
+    }
+
+
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
