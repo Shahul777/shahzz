@@ -1,4 +1,95 @@
+import { Component } from '@angular/core';
 
+@Component({
+  selector: 'app-tree-map',
+  template: `
+    <ngx-charts-tree-map
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="single"
+      [gradient]="gradient"
+      [animations]="animations"
+      [labelFormatting]="labelFormatting"
+      (select)="onSelect($event)">
+    </ngx-charts-tree-map>
+  `
+})
+export class TreeMapComponent {
+  single: any[];
+  colorScheme: any[];
+  view: [number, number] = [700, 400];
+  gradient: boolean = true;
+  animations: boolean = true;
+  labelFormatting: any = (label: string) => label;
+
+  constructor() {
+    this.single = [
+      {
+        "name": "Germany",
+        "value": 8940000
+      },
+      {
+        "name": "USA",
+        "value": 5000000
+      },
+      {
+        "name": "France",
+        "value": 7200000
+      },
+      {
+        "name": "Italy",
+        "value": 4500000
+      },
+      {
+        "name": "Spain",
+        "value": 5730000
+      },
+      {
+        "name": "UK",
+        "value": 8200000
+      }
+    ];
+
+    this.colorScheme = [
+      "#FF63471A",  // rgba(255, 99, 71, 0.1)
+      "#FF634733",  // rgba(255, 99, 71, 0.2)
+      "#FF63474D",  // rgba(255, 99, 71, 0.3)
+      "#FF634766",  // rgba(255, 99, 71, 0.4)
+      "#FF634780",  // rgba(255, 99, 71, 0.5)
+      "#FF634799",  // rgba(255, 99, 71, 0.6)
+      "#FF6347B3",  // rgba(255, 99, 71, 0.7)
+      "#FF6347CC",  // rgba(255, 99, 71, 0.8)
+      "#FF6347E6",  // rgba(255, 99, 71, 0.9)
+      "#FF6347FF"   // rgba(255, 99, 71, 1)
+    ];
+
+    this.single.sort((a, b) => b.value - a.value);
+    const maxPopulation = this.single[0].value;
+
+    // Adjust the color scheme density based on the population count
+    const numColors = this.colorScheme.length;
+    for (let i = 0; i < numColors; i++) {
+      const alpha = i / (numColors - 1);
+      this.colorScheme[i] = this.setAlpha(this.colorScheme[i], alpha);
+    }
+
+    // Assign the color scheme to the countries based on their population count
+    this.single.forEach(country => {
+      const density = country.value / maxPopulation;
+      const index = Math.round(density * (numColors - 1));
+      country.color = this.colorScheme[index];
+    });
+  }
+
+  setAlpha(color: string, alpha: number): string {
+    const alphaHex = Math.round(alpha * 255).toString(16).padStart(2, '0');
+    return color.slice(0, 7) + alphaHex;
+  }
+
+  onSelect(event: any) {
+    console.log(event);
+  }
+}
 i am working  on <ngx-charts-tree-map
   [view]="view"
   [scheme]="colorScheme"
