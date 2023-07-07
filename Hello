@@ -1,3 +1,17 @@
+
+gradient_colors = [
+    ["#FF0000", "#FF2A2A", "#FF5555", "#FF7F7F", "#FFAAAA", "#FFD4D4", "#FFF9F9", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Red
+    ["#0000FF", "#2A2AFF", "#5555FF", "#7F7FFF", "#AAAAFF", "#D4D4FF", "#F9F9FF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Blue
+    ["#00FF00", "#2AFF2A", "#55FF55", "#7FFF7F", "#AAFFAA", "#D4FFD4", "#F9FFF9", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Green
+    ["#FFFF00", "#FFFF2A", "#FFFF55", "#FFFF7F", "#FFFFAA", "#FFFFD4", "#FFFFF9", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Yellow
+    ["#800080", "#9F009F", "#BF00BF", "#DF00DF", "#EF00EF", "#8626C3", "#F900F9", "#FFD4FF", "#FFF9FF", "#FFFFFF"],  # Purple
+    ["#FFA500", "#FFAD33", "#FFB266", "#FFBA99", "#FFC3CC", "#FFCCFF", "#FFD4FF", "#FFF9FF", "#FFFFFF", "#FFFFFF"],  # Orange
+    ["#FF00FF", "#FF2AFF", "#FF55FF", "#FF7FFF", "#FFAAFF", "#FFD4FF", "#FFF9FF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Magenta
+    ["#00FFFF", "#2AFFFF", "#55FFFF", "#7FFFFF", "#AAFFFF", "#D4FFFF", "#F9FFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Cyan
+    ["#FFFF80", "#FFFF99", "#FFFFB2", "#FFFFCC", "#FFFFE5", "#FFFFEF", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Light Yellow
+    ["#008080", "#26A6A6", "#4CCCCC", "#73E2E2", "#9FF7F7", "#D4FFFF", "#F9FFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Teal
+]
+
 gradient_colors = [
     ["#FF0000", "#FF4040", "#FF7373", "#FFA6A6", "#FFD9D9", "#FFFFFF"],  # Red
     ["#0000FF", "#4040FF", "#7373FF", "#A6A6FF", "#D9D9FF", "#FFFFFF"],  # Blue
