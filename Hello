@@ -1,4 +1,16 @@
-
+color_codes = [
+    "#FF634700",  # rgba(255, 99, 71, 0)
+    "#FF63471A",  # rgba(255, 99, 71, 0.1)
+    "#FF634733",  # rgba(255, 99, 71, 0.2)
+    "#FF63474D",  # rgba(255, 99, 71, 0.3)
+    "#FF634766",  # rgba(255, 99, 71, 0.4)
+    "#FF634780",  # rgba(255, 99, 71, 0.5)
+    "#FF634799",  # rgba(255, 99, 71, 0.6)
+    "#FF6347B3",  # rgba(255, 99, 71, 0.7)
+    "#FF6347CC",  # rgba(255, 99, 71, 0.8)
+    "#FF6347E6",  # rgba(255, 99, 71, 0.9)
+    "#FF6347FF"   # rgba(255, 99, 71, 1)
+]
 gradient_colors = [
     ["#FF0000", "#FF2A2A", "#FF5555", "#FF7F7F", "#FFAAAA", "#FFD4D4", "#FFF9F9", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Red
     ["#0000FF", "#2A2AFF", "#5555FF", "#7F7FFF", "#AAAAFF", "#D4D4FF", "#F9F9FF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Blue
