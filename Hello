@@ -1,3 +1,14 @@
+FF0000
+FF2A00
+FF4000
+FF5500
+FF6A00
+FF8000
+FF9500
+FFAA00
+FFBF00
+FFD500
+FFEA00
 for (let i = 0; i < numColors; i++) {
       const density = i / (numColors - 1);
       const index = Math.round(density * (numColors - 1));
