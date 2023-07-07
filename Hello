@@ -1,4 +1,15 @@
-
+gradient_colors = [
+    ["#FFD700", "#FFA500"],    # Gold to Orange
+    ["#00FF00", "#008000"],    # Lime to Green
+    ["#1E90FF", "#000080"],    # Dodger Blue to Navy Blue
+    ["#FFC0CB", "#FF69B4"],    # Pink to Hot Pink
+    ["#FF4500", "#FF0000"],    # Orange Red to Red
+    ["#FFA07A", "#FF6347"],    # Light Salmon to Tomato
+    ["#FF1493", "#C71585"],    # Deep Pink to Medium Violet Red
+    ["#FF00FF", "#8B008B"],    # Magenta to Dark Magenta
+    ["#00FFFF", "#008080"],    # Aqua to Teal
+    ["#FFFF00", "#FFD700"]     # Yellow to Gold
+]
 [
   '#FF0000',
   '#FFA500',
