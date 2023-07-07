@@ -1,56 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { single } from './data';
 
 @Component({
-  selector: 'app-tree-map',
-  template: `
-    <ngx-charts-tree-map
-      [view]="view"
-      [scheme]="colorScheme"
-      [results]="single"
-      [gradient]="gradient"
-      [animations]="animations"
-      [labelFormatting]="labelFormatting"
-      (select)="onSelect($event)">
-    </ngx-charts-tree-map>
-  `
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-export class TreeMapComponent {
+export class AppComponent {
   single: any[];
-  colorScheme: any[];
-  view: [number, number] = [700, 400];
-  gradient: boolean = true;
+  view: any[] = [700, 400];
+
+  // options
+  gradient: boolean = false;
   animations: boolean = true;
-  labelFormatting: any = (label: string) => label;
 
+  colorScheme = {
+    domain:  [
+      "#FF63471A",  // rgba(255, 99, 71, 0.1)
+      "#FF634733",  // rgba(255, 99, 71, 0.2)
+      "#FF63474D",  // rgba(255, 99, 71, 0.3)
+      "#FF634766",  // rgba(255, 99, 71, 0.4)
+      "#FF634780",  // rgba(255, 99, 71, 0.5)
+      "#FF634799",  // rgba(255, 99, 71, 0.6)
+      "#FF6347B3",  // rgba(255, 99, 71, 0.7)
+      "#FF6347CC",  // rgba(255, 99, 71, 0.8)
+      "#FF6347E6",  // rgba(255, 99, 71, 0.9)
+      "#FF6347FF"   // rgba(255, 99, 71, 1)
+    ]
+  };
+colorScheme2 : any=[];
   constructor() {
-    this.single = [
-      {
-        "name": "Germany",
-        "value": 8940000
-      },
-      {
-        "name": "USA",
-        "value": 5000000
-      },
-      {
-        "name": "France",
-        "value": 7200000
-      },
-      {
-        "name": "Italy",
-        "value": 4500000
-      },
-      {
-        "name": "Spain",
-        "value": 5730000
-      },
-      {
-        "name": "UK",
-        "value": 8200000
-      }
-    ];
-
-    this.colorScheme = [
+    Object.assign(this, { single });
+    
+    this.colorScheme2 = [
       "#FF63471A",  // rgba(255, 99, 71, 0.1)
       "#FF634733",  // rgba(255, 99, 71, 0.2)
       "#FF63474D",  // rgba(255, 99, 71, 0.3)
@@ -80,148 +64,15 @@ export class TreeMapComponent {
       country.color = this.colorScheme[index];
     });
   }
-
   setAlpha(color: string, alpha: number): string {
     const alphaHex = Math.round(alpha * 255).toString(16).padStart(2, '0');
     return color.slice(0, 7) + alphaHex;
   }
-
-  onSelect(event: any) {
+  onSelect(event) {
     console.log(event);
   }
-}
-i am working  on <ngx-charts-tree-map
-  [view]="view"
-  [scheme]="colorScheme"
-  [results]="single"
-  [gradient]="gradient"
-  [animations]="animations"
-  [labelFormatting]="labelFormatting"
-  (select)="onSelect($event)">
-</ngx-charts-tree-map>  from import { NgxChartsModule } from '@swimlane/ngx-charts'; 
-the data for single is [
-  {
-    "name": "Germany",
-    "value": 8940000
-  },
-  {
-    "name": "USA",
-    "value": 5000000
-  },
-  {
-    "name": "France",
-    "value": 7200000
-  },
-  {
-    "name": "Italy",
-    "value": 4500000
-  },
-  {
-    "name": "Spain",
-    "value": 5730000
-  },{
-    "name": "UK",
-    "value": 8200000
+
+  labelFormatting(c) {
+    return `${(c.label)} Population`;
   }
-];
-the value for scheme is [
-    "#FF634700",  # rgba(255, 99, 71, 0)
-    "#FF63471A",  # rgba(255, 99, 71, 0.1)
-    "#FF634733",  # rgba(255, 99, 71, 0.2)
-    "#FF63474D",  # rgba(255, 99, 71, 0.3)
-    "#FF634766",  # rgba(255, 99, 71, 0.4)
-    "#FF634780",  # rgba(255, 99, 71, 0.5)
-    "#FF634799",  # rgba(255, 99, 71, 0.6)
-    "#FF6347B3",  # rgba(255, 99, 71, 0.7)
-    "#FF6347CC",  # rgba(255, 99, 71, 0.8)
-    "#FF6347E6",  # rgba(255, 99, 71, 0.9)
-    "#FF6347FF"   # rgba(255, 99, 71, 1)
-]
-ingore the commented rgba values in above array, this indicates various shades of colour increasing in dense.
-i need tree-map to show background colour of the respective map of single array values based on their count with respective to dense colour in scheme array . for example France should have dense background compare to USA because USA has 5000000 but france has higher value 7200000
-color_codes = [
-    "#FF634700",  # rgba(255, 99, 71, 0)
-    "#FF63471A",  # rgba(255, 99, 71, 0.1)
-    "#FF634733",  # rgba(255, 99, 71, 0.2)
-    "#FF63474D",  # rgba(255, 99, 71, 0.3)
-    "#FF634766",  # rgba(255, 99, 71, 0.4)
-    "#FF634780",  # rgba(255, 99, 71, 0.5)
-    "#FF634799",  # rgba(255, 99, 71, 0.6)
-    "#FF6347B3",  # rgba(255, 99, 71, 0.7)
-    "#FF6347CC",  # rgba(255, 99, 71, 0.8)
-    "#FF6347E6",  # rgba(255, 99, 71, 0.9)
-    "#FF6347FF"   # rgba(255, 99, 71, 1)
-]
-gradient_colors = [
-    ["#FF0000", "#FF2A2A", "#FF5555", "#FF7F7F", "#FFAAAA", "#FFD4D4", "#FFF9F9", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Red
-    ["#0000FF", "#2A2AFF", "#5555FF", "#7F7FFF", "#AAAAFF", "#D4D4FF", "#F9F9FF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Blue
-    ["#00FF00", "#2AFF2A", "#55FF55", "#7FFF7F", "#AAFFAA", "#D4FFD4", "#F9FFF9", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Green
-    ["#FFFF00", "#FFFF2A", "#FFFF55", "#FFFF7F", "#FFFFAA", "#FFFFD4", "#FFFFF9", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Yellow
-    ["#800080", "#9F009F", "#BF00BF", "#DF00DF", "#EF00EF", "#8626C3", "#F900F9", "#FFD4FF", "#FFF9FF", "#FFFFFF"],  # Purple
-    ["#FFA500", "#FFAD33", "#FFB266", "#FFBA99", "#FFC3CC", "#FFCCFF", "#FFD4FF", "#FFF9FF", "#FFFFFF", "#FFFFFF"],  # Orange
-    ["#FF00FF", "#FF2AFF", "#FF55FF", "#FF7FFF", "#FFAAFF", "#FFD4FF", "#FFF9FF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Magenta
-    ["#00FFFF", "#2AFFFF", "#55FFFF", "#7FFFFF", "#AAFFFF", "#D4FFFF", "#F9FFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Cyan
-    ["#FFFF80", "#FFFF99", "#FFFFB2", "#FFFFCC", "#FFFFE5", "#FFFFEF", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Light Yellow
-    ["#008080", "#26A6A6", "#4CCCCC", "#73E2E2", "#9FF7F7", "#D4FFFF", "#F9FFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Teal
-]
-
-gradient_colors = [
-    ["#FF0000", "#FF4040", "#FF7373", "#FFA6A6", "#FFD9D9", "#FFFFFF"],  # Red
-    ["#0000FF", "#4040FF", "#7373FF", "#A6A6FF", "#D9D9FF", "#FFFFFF"],  # Blue
-    ["#00FF00", "#40FF40", "#73FF73", "#A6FFA6", "#D9FFD9", "#FFFFFF"],  # Green
-    ["#FFFF00", "#FFFF40", "#FFFF73", "#FFFFA6", "#FFFFD9", "#FFFFFF"],  # Yellow
-    ["#800080", "#A040FF", "#C673FF", "#D9A6FF", "#ECD9FF", "#FFFFFF"],  # Purple
-    ["#FFA500", "#FFAD40", "#FFBE73", "#FFCEA6", "#FFDEDD", "#FFFFFF"],  # Orange
-    ["#FF00FF", "#FF40FF", "#FF73FF", "#FFA6FF", "#FFD9FF", "#FFFFFF"],  # Magenta
-    ["#00FFFF", "#40FFFF", "#73FFFF", "#A6FFFF", "#D9FFFF", "#FFFFFF"],  # Cyan
-    ["#FFFF80", "#FFFF9F", "#FFFFBF", "#FFFFDF", "#FFFFEF", "#FFFFFF"],  # Light Yellow
-    ["#008080", "#40A6A6", "#73CCCC", "#A6E2E2", "#D9F7F7", "#FFFFFF"],  # Teal
-]
-gradient_colors = [
-    ["#FF0000", "#FF2A2A", "#FF5555", "#FF7F7F", "#FFAAAA", "#FFD4D4", "#FFF9F9", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Red
-    ["#0000FF", "#2A2AFF", "#5555FF", "#7F7FFF", "#AAAAFF", "#D4D4FF", "#F9F9FF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Blue
-    ["#00FF00", "#2AFF2A", "#55FF55", "#7FFF7F", "#AAFFAA", "#D4FFD4", "#F9FFF9", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Green
-    ["#FFFF00", "#FFFF2A", "#FFFF55", "#FFFF7F", "#FFFFAA", "#FFFFD4", "#FFFFF9", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Yellow
-    ["#800080", "#9F009F", "#BF00BF", "#DF00DF", "#EF00EF", "#F9D4F9", "#F9F9FF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Purple
-    ["#FFA500", "#FFAD33", "#FFB266", "#FFBA99", "#FFC3CC", "#FFCCFF", "#FFD4FF", "#FFF9FF", "#FFFFFF", "#FFFFFF"],  # Orange
-    ["#FF00FF", "#FF2AFF", "#FF55FF", "#FF7FFF", "#FFAAFF", "#FFD4FF", "#FFF9FF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Magenta
-    ["#00FFFF", "#2AFFFF", "#55FFFF", "#7FFFFF", "#AAFFFF", "#D4FFFF", "#F9FFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Cyan
-    ["#FFFF80", "#FFFF99", "#FFFFB2", "#FFFFCC", "#FFFFE5", "#FFFFEF", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Light Yellow
-    ["#008080", "#26A6A6", "#4CCCCC", "#73E2E2", "#9FF7F7", "#D4FFFF", "#F9FFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"],  # Teal
-]
-
-
-gradient_colors = [
-    ["#FFD700", "#FFA500"],    # Gold to Orange
-    ["#00FF00", "#008000"],    # Lime to Green
-    ["#1E90FF", "#000080"],    # Dodger Blue to Navy Blue
-    ["#FFC0CB", "#FF69B4"],    # Pink to Hot Pink
-    ["#FF4500", "#FF0000"],    # Orange Red to Red
-    ["#FFA07A", "#FF6347"],    # Light Salmon to Tomato
-    ["#FF1493", "#C71585"],    # Deep Pink to Medium Violet Red
-    ["#FF00FF", "#8B008B"],    # Magenta to Dark Magenta
-    ["#00FFFF", "#008080"],    # Aqua to Teal
-    ["#FFFF00", "#FFD700"]     # Yellow to Gold
-]
-[
-  '#FF0000',
-  '#FFA500',
-  '#FFFF00',
-  '#00FF00',
-  '#0000FF',
-  '#800080',
-  '#FFC0CB',
-  '#FFFFFF',
-  '#808080',
-  '#008000',
-  '#FF00FF',
-  '#00FFFF',
-  '#800000',
-  '#FF4500',
-  '#FFFFE0',
-  '#800080',
-  '#FF69B4',
-  '#ADD8E6',
-  '#FFD700',
-  '#8A2BE2'
-]
+}
