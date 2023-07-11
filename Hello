@@ -1,3 +1,27 @@
+// Find the related tables in tableRelationsList
+const relatedTables = tableRelationsList
+  .filter((relation) => relation.relatedColumnName === columnSelected)
+  .map((relation) => relation.tableName);
+
+// Update algolistTable1 based on the conditions
+relatedTables.forEach((relatedTable) => {
+  const existingIndex = algolistTable1.findIndex((element) => element.tablename === relatedTable && element.columnName === columnSelected);
+  if (existingIndex !== -1) {
+    // If the element exists, replace the algodetails
+    algolistTable1[existingIndex].algodetails = algolistTable1.filter((element) => element.tablename === tableSelected && element.columnName === columnSelected)[0].algodetails;
+  } else {
+    // If the element doesn't exist, append a new element
+    algolistTable1.push({
+      tablename: relatedTable,
+      columnName: columnSelected,
+      algodetails: algolistTable1.filter((element) => element.tablename === tableSelected && element.columnName === columnSelected)[0].algodetails,
+    });
+  }
+});
+
+
+
+
 import * as d3 from 'd3';
 import * as squarify from 'squarify';
 
