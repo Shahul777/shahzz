@@ -1,0 +1,53 @@
+interface DataItem {
+  algoName: string;
+  // Add other properties if needed
+}
+
+function mergeByShahul(dataList: DataItem[]): DataItem[][] {
+  const mergedList: DataItem[][] = [];
+  let currentArray: DataItem[] = [];
+
+  for (const data of dataList) {
+    const { algoName } = data;
+    if (algoName === "shahul") {
+      // If "shahul" is encountered, add the current array to the merged list
+      if (currentArray.length > 0) {
+        mergedList.push([...currentArray]);
+        currentArray = [];
+      }
+    }
+    currentArray.push(data);
+  }
+
+  // Add the last array to the result if it's not empty
+  if (currentArray.length > 0) {
+    mergedList.push(currentArray);
+  }
+
+  return mergedList;
+}
+
+function reverseMergeByShahul(mergedList: DataItem[][]): DataItem[] {
+  const dataList: DataItem[] = [];
+  for (const array of mergedList) {
+    dataList.push(...array);
+  }
+  return dataList;
+}
+
+// Example Usage:
+const dataList: DataItem[] = [
+  { algoName: "shahul" },
+  { algoName: "other" },
+  { algoName: "other" },
+  { algoName: "shahul" },
+  { algoName: "other" },
+  { algoName: "shahul" },
+  { algoName: "other" },
+];
+
+const mergedList = mergeByShahul(dataList);
+console.log(mergedList);
+
+const reversedDataList = reverseMergeByShahul(mergedList);
+console.log(reversedDataList);
