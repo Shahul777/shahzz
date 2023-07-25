@@ -1,0 +1,45 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class EfficientSplittingExample {
+    public static void main(String[] args) {
+        List<Map<String, Object>> dataList = new ArrayList<>();
+        dataList.add(Map.of("algoName", "shahul"));
+        dataList.add(Map.of("algoName", "other"));
+        dataList.add(Map.of("algoName", "other"));
+        dataList.add(Map.of("algoName", "shahul"));
+        dataList.add(Map.of("algoName", "other"));
+        dataList.add(Map.of("algoName", "shahul"));
+        dataList.add(Map.of("algoName", "other"));
+
+        List<List<Map<String, Object>>> mergedList = mergeByShahul(dataList);
+
+        // Print the merged list
+        System.out.println(mergedList);
+    }
+
+    public static List<List<Map<String, Object>>> mergeByShahul(List<Map<String, Object>> dataList) {
+        List<List<Map<String, Object>>> mergedList = new ArrayList<>();
+        List<Map<String, Object>> currentArray = new ArrayList<>();
+
+        for (Map<String, Object> data : dataList) {
+            String algoName = (String) data.get("algoName");
+            if ("shahul".equals(algoName)) {
+                // If "shahul" is encountered, add the current array to the merged list
+                if (!currentArray.isEmpty()) {
+                    mergedList.add(new ArrayList<>(currentArray));
+                    currentArray.clear();
+                }
+            }
+            currentArray.add(data);
+        }
+
+        // Add the last array to the result if it's not empty
+        if (!currentArray.isEmpty()) {
+            mergedList.add(currentArray);
+        }
+
+        return mergedList;
+    }
+}
