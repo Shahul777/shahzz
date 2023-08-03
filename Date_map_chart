@@ -1,3 +1,41 @@
+
+
+getAllIntervals(intervalType: string): string[] {
+  if (intervalType === 'month') {
+    const formatter = new Intl.DateTimeFormat('en', { month: 'short' });
+    const allMonths = [];
+    for (let month = 0; month < 12; month++) {
+      const date = new Date(2023, month, 1); // Using 2023 as a reference year
+      const monthName = formatter.format(date);
+      allMonths.push(monthName);
+    }
+    return allMonths;
+  } else if (intervalType === 'week') {
+    const formatter = new Intl.DateTimeFormat('en', { week: 'numeric' });
+    const allWeeks = [];
+    for (let week = 1; week <= 52; week++) {
+      const date = new Date(2023, 0, week * 7); // Using 2023 as a reference year
+      const weekNumber = formatter.format(date);
+      allWeeks.push('Week ' + weekNumber);
+    }
+    return allWeeks;
+  } else if (intervalType === 'year') {
+    const formatter = new Intl.DateTimeFormat('en', { year: 'numeric' });
+    const allYears = [];
+    const currentYear = new Date().getFullYear();
+    for (let year = currentYear; year >= currentYear - 10; year--) { // We'll consider the last 10 years
+      const date = new Date(year, 0, 1);
+      const yearNumber = formatter.format(date);
+      allYears.push('Year ' + yearNumber);
+    }
+    return allYears;
+  } else {
+    // Handle other interval types as needed.
+    return [];
+  }
+}
+
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({
