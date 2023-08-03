@@ -1,6 +1,19 @@
 function getWeekNumber(date: Date): number {
-  // ... Define the getWeekNumber function as shown in the previous response ...
+  // Copy the date object to avoid modifying the original date
+  const copiedDate = new Date(date);
+
+  // Set the day to Monday (ISO week starts on Monday)
+  copiedDate.setDate(copiedDate.getDate() + 4 - (copiedDate.getDay() || 7));
+
+  // Get the year for the Monday of the week
+  const yearStart = new Date(copiedDate.getFullYear(), 0, 1);
+
+  // Calculate the week number as the number of full weeks between the Monday and the year start
+  const weekNumber = Math.ceil(((copiedDate.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
+
+  return weekNumber;
 }
+
 
 function createWeekList(dateList: Date[], month: string): { date: Date; week: string }[] {
   const weekList = [];
