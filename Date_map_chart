@@ -1,3 +1,15 @@
+function getWeekNumberInMonth(date: Date, targetMonth: number): number {
+  const startOfMonth = new Date(date.getFullYear(), targetMonth, 1);
+  const dayOfWeek = startOfMonth.getDay();
+  const weekOffset = dayOfWeek === 0 ? 1 : 0; // Adjust for Sunday-based weeks
+
+  const weekNumber = Math.ceil((date.getDate() + dayOfWeek - weekOffset) / 7);
+
+  return weekNumber;
+}
+
+
+
 function getWeekNumber(date: Date): number {
   // Copy the date object to avoid modifying the original date
   const copiedDate = new Date(date);
