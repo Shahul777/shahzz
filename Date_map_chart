@@ -1,5 +1,4 @@
 
-
 getAllIntervals(intervalType: string): string[] {
   if (intervalType === 'month') {
     const formatter = new Intl.DateTimeFormat('en', { month: 'short' });
@@ -11,12 +10,13 @@ getAllIntervals(intervalType: string): string[] {
     }
     return allMonths;
   } else if (intervalType === 'week') {
-    const formatter = new Intl.DateTimeFormat('en', { week: 'numeric' });
     const allWeeks = [];
+    const startDate = new Date(2023, 0, 1); // Using 2023 as a reference year
     for (let week = 1; week <= 52; week++) {
-      const date = new Date(2023, 0, week * 7); // Using 2023 as a reference year
-      const weekNumber = formatter.format(date);
-      allWeeks.push('Week ' + weekNumber);
+      const endDate = new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const weekLabel = `Week ${week}`;
+      allWeeks.push(weekLabel);
+      startDate.setDate(startDate.getDate() + 7);
     }
     return allWeeks;
   } else if (intervalType === 'year') {
@@ -34,6 +34,8 @@ getAllIntervals(intervalType: string): string[] {
     return [];
   }
 }
+
+
 
 
 import { Component, OnInit } from '@angular/core';
