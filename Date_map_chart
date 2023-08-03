@@ -1,0 +1,240 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-area-chart',
+  templateUrl: './area-chart.component.html',
+  styleUrls: ['./area-chart.component.css']
+})
+export class AreaChartComponent implements OnInit {
+  maskingJobs = [
+    "2023-01-03T11:56:36.112+0000",
+    "2023-02-03T13:20:05.290+0000",
+    // Add more dates as needed
+  ];
+
+  discoveryJobs = [
+    "2023-03-03T09:15:36.112+0000",
+    "2023-03-03T11:30:05.290+0000",
+    // Add more dates as needed
+  ];
+
+  maskingJobDates: Date[] = [];
+  discoveryJobDates: Date[] = [];
+  combinedIntervalData: { name: string, series: { name: string, value: number }[] }[] = [];
+
+  ngOnInit(): void {
+    this.maskingJobDates = this.maskingJobs.map(dateStr => new Date(dateStr));
+    this.discoveryJobDates = this.discoveryJobs.map(dateStr => new Date(dateStr));
+
+    this.combinedIntervalData = this.combineAndGroupJobsByTimeInterval(this.maskingJobDates, this.discoveryJobDates);
+  }
+
+  combineAndGroupJobsByTimeInterval(maskingDates: Date[], discoveryDates: Date[]): { name: string, series: { name: string, value: number }[] }[] {
+    const maskingData = this.groupJobsByTimeInterval(maskingDates);
+    const discoveryData = this.groupJobsByTimeInterval(discoveryDates);
+
+    return [
+      {
+        name: 'Category 1', // Masking Jobs
+        series: maskingData,
+      },
+      {
+        name: 'Category 2', // Discovery Jobs
+        series: discoveryData,
+      }
+    ];
+  }
+
+  groupJobsByTimeInterval(dates: Date[]): { name: string, value: number }[] {
+    // ... implementation for determining the interval based on date differences ...
+    // ... implementation for grouping jobs by year, quarter, month, week, and day ...
+  }
+}
+..,......
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-area-chart',
+  templateUrl: './area-chart.component.html',
+  styleUrls: ['./area-chart.component.css']
+})
+export class AreaChartComponent implements OnInit {
+  maskingJobs = [
+    "2023-01-03T11:56:36.112+0000",
+    "2023-02-03T13:20:05.290+0000",
+    // Add more dates as needed
+  ];
+
+  discoveryJobs = [
+    "2023-03-03T09:15:36.112+0000",
+    "2023-03-03T11:30:05.290+0000",
+    // Add more dates as needed
+  ];
+
+  maskingJobDates: Date[] = [];
+  discoveryJobDates: Date[] = [];
+  combinedIntervalData: { name: string, series: { name: string, value: number }[] }[] = [];
+
+  ngOnInit(): void {
+    this.maskingJobDates = this.maskingJobs.map(dateStr => new Date(dateStr));
+    this.discoveryJobDates = this.discoveryJobs.map(dateStr => new Date(dateStr));
+
+    this.combinedIntervalData = this.combineAndGroupJobsByTimeInterval(this.maskingJobDates, this.discoveryJobDates);
+  }
+
+  combineAndGroupJobsByTimeInterval(maskingDates: Date[], discoveryDates: Date[]): { name: string, series: { name: string, value: number }[] }[] {
+    const maskingData = this.groupJobsByTimeInterval(maskingDates);
+    const discoveryData = this.groupJobsByTimeInterval(discoveryDates);
+
+    return [
+      {
+        name: 'Category 1', // Masking Jobs
+        series: maskingData,
+      },
+      {
+        name: 'Category 2', // Discovery Jobs
+        series: discoveryData,
+      }
+    ];
+  }
+
+  groupJobsByTimeInterval(dates: Date[]): { name: string, value: number }[] {
+    const intervalData: { [key: string]: number } = {};
+    const dateDifference = this.getDateDifference(dates);
+    const numMonths = dateDifference.getMonths();
+    const numDays = dateDifference.getDays();
+    let intervalType: 'month' | 'week' | 'year';
+
+    if (numMonths >= 12) {
+      intervalType = 'year';
+    } else if (numMonths >= 4) {
+      intervalType = 'quarter';
+    } else if (numMonths >= 1) {
+      intervalType = 'month';
+    } else if (numDays >= 7) {
+      intervalType = 'week';
+    } else {
+      intervalType = 'day';
+    }
+
+    const formatter = new Intl.DateTimeFormat('en', { [intervalType]: 'short' });
+
+    dates.forEach(date => {
+      const intervalName = formatter.format(date);
+
+      if (!intervalData[intervalName]) {
+        intervalData[intervalName] = 1;
+      } else {
+        intervalData[intervalName]++;
+      }
+    });
+
+    const seriesData = Object.keys(intervalData).map(intervalName => ({ name: intervalName, value: intervalData[intervalName] }));
+    
+    // Fill missing intervals with 0 value
+    const sortedSeriesData = seriesData.sort((a, b) => a.name.localeCompare(b.name));
+    const filledSeriesData = this.fillMissingIntervals(sortedSeriesData, intervalType);
+
+    return filledSeriesData;
+  }
+
+  fillMissingIntervals(seriesData: { name: string, value: number }[], intervalType: string): { name: string, value: number }[] {
+    const allIntervals = this.getAllIntervals(intervalType);
+    const filledData: { name: string, value: number }[] = [];
+
+    allIntervals.forEach(interval => {
+      const matchingData = seriesData.find(data => data.name === interval);
+      filledData.push(matchingData ? matchingData : { name: interval, value: 0 });
+    });
+
+    return filledData;
+  }
+
+  getAllIntervals(intervalType: string): string[] {
+    // Customize this function to get all possible intervals based on the intervalType
+    // For example, return an array of month names, week numbers, or years.
+    // For simplicity, we will use hardcoded month names as an example here.
+    if (intervalType === 'month') {
+      return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    } else if (intervalType === 'week') {
+      // Customize to return week numbers.
+      return [];
+    } else if (intervalType === 'year') {
+      // Customize to return years.
+      return [];
+    } else {
+      // Handle other interval types as needed.
+      return [];
+    }
+  }
+
+  getDateDifference(dates: Date[]): { getMonths: () => number, getDays: () => number } {
+    const sortedDates = dates.sort((a, b) => a.getTime() - b.getTime());
+    const firstDate = sortedDates[0];
+    const lastDate = sortedDates[sortedDates.length - 1];
+    const diffMilliseconds = lastDate.getTime() - firstDate.getTime();
+
+    return {
+      getMonths: () => {
+        const yearDiff = lastDate.getFullYear() - firstDate.getFullYear();
+        const monthDiff = lastDate.getMonth() - firstDate.getMonth();
+        return yearDiff * 12 + monthDiff;
+      },
+      getDays: () => Math.floor(diffMilliseconds / (1000 * 60 * 60 * 24))
+    };
+  }
+}
+...........
+
+
+
+
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-area-chart',
+  templateUrl: './area-chart.component.html',
+  styleUrls: ['./area-chart.component.css']
+})
+export class AreaChartComponent implements OnInit {
+  // ... previous code ...
+
+  getAllIntervals(intervalType: string): string[] {
+    if (intervalType === 'month') {
+      const formatter = new Intl.DateTimeFormat('en', { month: 'short' });
+      const allMonths = [];
+      for (let month = 0; month < 12; month++) {
+        const date = new Date(2023, month, 1); // Using 2023 as a reference year
+        const monthName = formatter.format(date);
+        allMonths.push(monthName);
+      }
+      return allMonths;
+    } else if (intervalType === 'week') {
+      const formatter = new Intl.DateTimeFormat('en', { week: 'numeric' });
+      const allWeeks = [];
+      for (let week = 1; week <= 52; week++) {
+        const date = new Date(2023, 0, week * 7); // Using 2023 as a reference year
+        const weekNumber = formatter.format(date);
+        allWeeks.push('Week ' + weekNumber);
+      }
+      return allWeeks;
+    } else if (intervalType === 'year') {
+      const formatter = new Intl.DateTimeFormat('en', { year: 'numeric' });
+      const allYears = [];
+      const currentYear = new Date().getFullYear();
+      for (let year = currentYear; year >= currentYear - 10; year--) { // We'll consider the last 10 years
+        const date = new Date(year, 0, 1);
+        const yearNumber = formatter.format(date);
+        allYears.push('Year ' + yearNumber);
+      }
+      return allYears;
+    } else {
+      // Handle other interval types as needed.
+      return [];
+    }
+  }
+
+  // ... remaining code ...
+}
+
