@@ -1,3 +1,46 @@
+function getWeekNumber(date: Date): number {
+  // ... Define the getWeekNumber function as shown in the previous response ...
+}
+
+function createWeekList(dateList: Date[], month: string): { date: Date; week: string }[] {
+  const weekList = [];
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
+  const monthIndex = monthNames.findIndex(name => name.toLowerCase() === month.toLowerCase());
+  if (monthIndex === -1) {
+    throw new Error('Invalid month name.');
+  }
+
+  const startDate = new Date(new Date().getFullYear(), monthIndex, 1);
+  const endDate = new Date(new Date().getFullYear(), monthIndex + 1, 0);
+
+  for (const date of dateList) {
+    if (date >= startDate && date <= endDate) {
+      const weekNumber = getWeekNumber(date);
+      const weekLabel = `Week ${weekNumber}`;
+      weekList.push({ date: date, week: weekLabel });
+    }
+  }
+
+  return weekList;
+}
+
+// Example usage:
+const dateList = [new Date('2023-01-03'), new Date('2023-01-09'), new Date('2023-01-14'), new Date('2023-01-25')];
+const month = 'Jan';
+
+const weekList = createWeekList(dateList, month);
+console.log(weekList);
+
+
+...
+
+
+
+
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({
