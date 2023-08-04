@@ -1,3 +1,49 @@
+// Get the canvas element
+const ctx = document.getElementById('areaChart').getContext('2d');
+
+// Sample data for different datasets
+const dataset1Data = [3, 5, 8, 12, 10];
+const dataset2Data = [2, 4, 6, 8, 7];
+const dataset3Data = [6, 8, 10, 5, 9];
+const dataset4Data = [9, 7, 3, 10, 6];
+const dataset5Data = [4, 3, 9, 6, 8];
+
+// Create a linear gradient with border color for each dataset
+const createGradient = (color) => {
+  const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+  gradient.addColorStop(0, `rgba(${color}, 0.5)`);
+  gradient.addColorStop(1, `rgba(${color}, 0)`);
+  return gradient;
+};
+
+// Define colors for each dataset
+const colors = [
+  '255, 0, 0',   // Red
+  '0, 0, 255',   // Blue
+  '0, 255, 0',   // Green
+  '255, 165, 0', // Orange
+  '128, 0, 128'  // Purple
+];
+
+// Create the area chart
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+    datasets: colors.map((color, index) => ({
+      label: `Dataset ${index + 1}`,
+      data: [dataset1Data, dataset2Data, dataset3Data, dataset4Data, dataset5Data][index],
+      backgroundColor: createGradient(color),
+      borderColor: `rgb(${color})`,
+      borderWidth: 2,
+    })),
+  },
+});
+
+
+
+
+
 function getWeekNumberInMonth(date: Date, targetMonth: number): number {
   const startOfMonth = new Date(date.getFullYear(), targetMonth, 1);
   const dayOfWeek = startOfMonth.getDay();
