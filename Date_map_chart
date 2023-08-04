@@ -1,3 +1,45 @@
+const ctx = document.getElementById('areaChart').getContext('2d');
+
+const data = [
+  { x: '2023-01-01', y: 5 },
+  { x: '2023-02-01', y: 8 },
+  { x: '2023-03-01', y: 12 },
+  { x: '2023-04-01', y: 7 },
+  // Add more data points as needed
+];
+
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    datasets: [
+      {
+        label: 'My Area Chart',
+        data: data,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)', // Area fill color
+        borderColor: 'rgba(75, 192, 192, 1)', // Border color
+        borderWidth: 2, // Border width
+      },
+    ],
+  },
+  options: {
+    scales: {
+      x: {
+        type: 'time', // Set X axis as time-based
+        time: {
+          unit: 'month', // Display units by month
+        },
+      },
+      y: {
+        beginAtZero: true, // Start Y axis from 0
+      },
+    },
+  },
+});
+
+
+
+
+
 
 new Chart(ctx, {
   type: 'line',
