@@ -1,3 +1,54 @@
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+// Observable functions
+const observable1 = serviceCall1();
+const observable2 = serviceCall2();
+const observable3 = serviceCall3();
+const observable4 = serviceCall4();
+
+// Use catchError for each observable
+observable1.pipe(
+  catchError(error => {
+    console.error('Error in observable 1:', error);
+    return of(null); // Continue with a null value
+  })
+);
+
+observable2.pipe(
+  catchError(error => {
+    console.error('Error in observable 2:', error);
+    return of(null); // Continue with a null value
+  })
+);
+
+observable3.pipe(
+  catchError(error => {
+    console.error('Error in observable 3:', error);
+    return of(null); // Continue with a null value
+  })
+);
+
+observable4.pipe(
+  catchError(error => {
+    console.error('Error in observable 4:', error);
+    return of(null); // Continue with a null value
+  })
+);
+
+// Subscribe using forkJoin
+forkJoin([observable1, observable2, observable3, observable4]).subscribe(results => {
+  // Handle results (results array contains values or null values for each observable)
+});
+
+
+
+
+
+
+
+
+
 const data = [
   { x: new Date('2023-01-01'), y: 5 },
   { x: new Date('2023-02-01'), y: 8 },
