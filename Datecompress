@@ -5,7 +5,7 @@ function compressDataByTime(data, timeFormat) {
     const year = item.x.getFullYear();
     const month = item.x.getMonth() + 1;
     const week = getWeekNumber(item.x);
-    
+
     let key = '';
     if (timeFormat === 'year') {
       key = year;
@@ -22,7 +22,7 @@ function compressDataByTime(data, timeFormat) {
       if (timeFormat === 'year') {
         compressedDate = new Date(`${year}-12-31`);
       } else if (timeFormat === 'month') {
-        compressedDate = new Date(year, month, 0);
+        compressedDate = new Date(year, month - 1, 1); // Use the first day of the month
       } else if (timeFormat === 'week') {
         compressedDate = getWeekEndingDate(item.x);
       }
