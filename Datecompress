@@ -2,56 +2,46 @@ const datasetsList = [
   {
     data: [
       { x: new Date('2023-01-01'), y: 5 },
-      { x: new Date('2023-01-03'), y: 10 },
-      { x: new Date('2023-01-05'), y: 8 },
+      { x: new Date('2023-02-05'), y: 8 },
     ],
   },
   {
     data: [
-      { x: new Date('2023-01-01'), y: 3 },
-      { x: new Date('2023-01-04'), y: 6 },
-      { x: new Date('2023-01-05'), y: 7 },
+      { x: new Date('2023-02-02'), y: 3 },
+      { x: new Date('2023-03-04'), y: 6 },
     ],
   },
 ];
 
-// Step 1: Sort datasetsList by the sum of y values in data arrays
+// Step 1: Create a set of all unique dates across all datasets
+const allDates = new Set();
+datasetsList.forEach((dataset) => {
+  dataset.data.forEach((point) => allDates.add(point.x.getTime()));
+});
+
+// Step 2: Incorporate missing dates within each data array
+datasetsList.forEach((dataset) => {
+  const missingDates = Array.from(allDates).filter((date) =>
+    !dataset.data.some((point) => point.x.getTime() === date)
+  );
+
+  missingDates.forEach((missingDate) => {
+    dataset.data.push({ x: new Date(missingDate), y: 0 });
+  });
+
+  dataset.data.sort((a, b) => a.x - b.x);
+});
+
+// Step 3: Sort data arrays within each object by x date
+datasetsList.forEach((dataset) => {
+  dataset.data.sort((a, b) => a.x - b.x);
+});
+
+// Step 4: Sort datasetsList by the sum of y values in data arrays
 datasetsList.sort((a, b) => {
   const sumA = a.data.reduce((total, obj) => total + obj.y, 0);
   const sumB = b.data.reduce((total, obj) => total + obj.y, 0);
   return sumB - sumA;
-});
-
-// Step 2: Incorporate missing dates with y value 0 within each month
-datasetsList.forEach((dataset) => {
-  const monthData = {};
-  dataset.data.forEach(({ x, y }) => {
-    const key = x.getFullYear() + '-' + (x.getMonth() + 1);
-    if (!monthData[key]) monthData[key] = [];
-    monthData[key].push({ x, y });
-  });
-
-  const updatedData = [];
-  for (const monthKey in monthData) {
-    const monthArray = monthData[monthKey];
-    const firstDate = monthArray[0].x;
-    const lastDate = new Date(firstDate.getFullYear(), firstDate.getMonth() + 1, 0);
-    const datesInRange = new Set(monthArray.map(({ x }) => x.getTime()));
-
-    for (let currentDate = firstDate; currentDate <= lastDate; currentDate.setDate(currentDate.getDate() + 1)) {
-      if (!datesInRange.has(currentDate.getTime())) {
-        monthArray.push({ x: new Date(currentDate), y: 0 });
-      }
-    }
-    updatedData.push(...monthArray);
-  }
-
-  dataset.data = updatedData;
-});
-
-// Step 3: Order data arrays within each object by x date
-datasetsList.forEach((dataset) => {
-  dataset.data.sort((a, b) => a.x - b.x);
 });
 
 console.log(datasetsList);
