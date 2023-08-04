@@ -1,3 +1,55 @@
+
+// Sample datasetsList with objects having data arrays
+const datasetsList = [
+  {
+    data: [
+      { x: new Date('2023-01-01'), y: 5 },
+      { x: new Date('2023-01-03'), y: 10 },
+      // ... other data objects
+    ],
+  },
+  // ... other objects in datasetsList
+];
+
+// Step 1: Sort datasetsList by the sum of y values in data arrays
+datasetsList.sort((a, b) => {
+  const sumA = a.data.reduce((total, obj) => total + obj.y, 0);
+  const sumB = b.data.reduce((total, obj) => total + obj.y, 0);
+  return sumB - sumA;
+});
+
+// Step 2: Incorporate missing dates with y value 0
+const allDates = new Set();
+datasetsList.forEach((dataset) => {
+  dataset.data.forEach((point) => allDates.add(point.x.getTime()));
+});
+
+const minDate = Math.min(...allDates);
+const maxDate = Math.max(...allDates);
+const datesRange = Array.from({ length: (maxDate - minDate) / (24 * 60 * 60 * 1000) + 1 })
+  .map((_, index) => new Date(minDate + index * 24 * 60 * 60 * 1000));
+
+datasetsList.forEach((dataset) => {
+  dataset.data = datesRange.map((date) => {
+    const existingPoint = dataset.data.find((point) => point.x.getTime() === date.getTime());
+    return existingPoint || { x: date, y: 0 };
+  });
+});
+
+// Step 3: Order data arrays within each object by x date
+datasetsList.forEach((dataset) => {
+  dataset.data.sort((a, b) => a.x - b.x);
+});
+
+
+
+
+
+
+
+
+
+
 function compressDataByTime(data, timeFormat) {
   const compressedData = new Map();
 
