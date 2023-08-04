@@ -1,3 +1,26 @@
+
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    // ... your data configuration ...
+  },
+  options: {
+    scales: {
+      x: {
+        grid: {
+          display: false, // Hide X axis grid lines
+        },
+      },
+      y: {
+        grid: {
+          display: false, // Hide Y axis grid lines
+        },
+      },
+    },
+  },
+});
+
+
 // Get the canvas element
 const ctx = document.getElementById('areaChart').getContext('2d');
 
