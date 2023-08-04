@@ -1,3 +1,31 @@
+// Step 5: Incorporate missing months between existing dates in each data array
+datasetsList.forEach((dataset) => {
+  const newData = [];
+  for (let i = 0; i < dataset.data.length - 1; i++) {
+    newData.push(dataset.data[i]);
+
+    const currentDate = new Date(dataset.data[i].x);
+    const nextDate = new Date(dataset.data[i + 1].x);
+    const monthsDifference = (nextDate.getFullYear() - currentDate.getFullYear()) * 12 + (nextDate.getMonth() - currentDate.getMonth());
+
+    if (monthsDifference > 1) {
+      for (let j = 1; j < monthsDifference; j++) {
+        const missingDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + j, 1);
+        newData.push({ x: missingDate, y: 0 });
+      }
+    }
+  }
+  newData.push(dataset.data[dataset.data.length - 1]);
+  dataset.data = newData;
+});
+
+console.log(datasetsList);
+
+
+
+
+
+
 const datasetsList = [
   {
     data: [
