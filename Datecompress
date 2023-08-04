@@ -1,14 +1,18 @@
-
-// Sample datasetsList with objects having data arrays
 const datasetsList = [
   {
     data: [
       { x: new Date('2023-01-01'), y: 5 },
       { x: new Date('2023-01-03'), y: 10 },
-      // ... other data objects
+      { x: new Date('2023-01-05'), y: 8 },
     ],
   },
-  // ... other objects in datasetsList
+  {
+    data: [
+      { x: new Date('2023-01-01'), y: 3 },
+      { x: new Date('2023-01-04'), y: 6 },
+      { x: new Date('2023-01-05'), y: 7 },
+    ],
+  },
 ];
 
 // Step 1: Sort datasetsList by the sum of y values in data arrays
@@ -18,22 +22,31 @@ datasetsList.sort((a, b) => {
   return sumB - sumA;
 });
 
-// Step 2: Incorporate missing dates with y value 0
-const allDates = new Set();
+// Step 2: Incorporate missing dates with y value 0 within each month
 datasetsList.forEach((dataset) => {
-  dataset.data.forEach((point) => allDates.add(point.x.getTime()));
-});
-
-const minDate = Math.min(...allDates);
-const maxDate = Math.max(...allDates);
-const datesRange = Array.from({ length: (maxDate - minDate) / (24 * 60 * 60 * 1000) + 1 })
-  .map((_, index) => new Date(minDate + index * 24 * 60 * 60 * 1000));
-
-datasetsList.forEach((dataset) => {
-  dataset.data = datesRange.map((date) => {
-    const existingPoint = dataset.data.find((point) => point.x.getTime() === date.getTime());
-    return existingPoint || { x: date, y: 0 };
+  const monthData = {};
+  dataset.data.forEach(({ x, y }) => {
+    const key = x.getFullYear() + '-' + (x.getMonth() + 1);
+    if (!monthData[key]) monthData[key] = [];
+    monthData[key].push({ x, y });
   });
+
+  const updatedData = [];
+  for (const monthKey in monthData) {
+    const monthArray = monthData[monthKey];
+    const firstDate = monthArray[0].x;
+    const lastDate = new Date(firstDate.getFullYear(), firstDate.getMonth() + 1, 0);
+    const datesInRange = new Set(monthArray.map(({ x }) => x.getTime()));
+
+    for (let currentDate = firstDate; currentDate <= lastDate; currentDate.setDate(currentDate.getDate() + 1)) {
+      if (!datesInRange.has(currentDate.getTime())) {
+        monthArray.push({ x: new Date(currentDate), y: 0 });
+      }
+    }
+    updatedData.push(...monthArray);
+  }
+
+  dataset.data = updatedData;
 });
 
 // Step 3: Order data arrays within each object by x date
@@ -41,81 +54,4 @@ datasetsList.forEach((dataset) => {
   dataset.data.sort((a, b) => a.x - b.x);
 });
 
-
-
-
-
-
-
-
-
-
-function compressDataByTime(data, timeFormat) {
-  const compressedData = new Map();
-
-  data.forEach(item => {
-    const year = item.x.getFullYear();
-    const month = item.x.getMonth() + 1;
-    const week = getWeekNumber(item.x);
-
-    let key = '';
-    if (timeFormat === 'year') {
-      key = year;
-    } else if (timeFormat === 'month') {
-      key = `${year}-${month}`;
-    } else if (timeFormat === 'week') {
-      key = `${year}-${week}`;
-    }
-
-    if (compressedData.has(key)) {
-      compressedData.get(key).y += item.y;
-    } else {
-      let compressedDate;
-      if (timeFormat === 'year') {
-        compressedDate = new Date(`${year}-12-31`);
-      } else if (timeFormat === 'month') {
-        compressedDate = new Date(year, month - 1, 1); // Use the first day of the month
-      } else if (timeFormat === 'week') {
-        compressedDate = getWeekEndingDate(item.x);
-      }
-      compressedData.set(key, { x: compressedDate, y: item.y });
-    }
-  });
-
-  return Array.from(compressedData.values());
-}
-
-function getWeekNumber(date) {
-  const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
-  const daysOffset = firstDayOfYear.getDay() > 4 ? 11 - firstDayOfYear.getDay() : 4 - firstDayOfYear.getDay();
-  const firstThursday = new Date(firstDayOfYear.getTime() + (daysOffset * 24 * 60 * 60 * 1000));
-  const weekNumber = Math.floor(1 + (date - firstThursday) / (7 * 24 * 60 * 60 * 1000));
-  return weekNumber;
-}
-
-function getWeekEndingDate(date) {
-  const diff = 6 - date.getDay();
-  const weekEndDate = new Date(date);
-  weekEndDate.setDate(date.getDate() + diff);
-  return weekEndDate;
-}
-
-// Sample data
-const data = [
-  { x: new Date('2023-01-01'), y: 5 },
-  { x: new Date('2023-02-01'), y: 8 },
-  { x: new Date('2023-03-01'), y: 1 },
-  { x: new Date('2023-03-05'), y: 1 },
-  { x: new Date('2023-04-01'), y: 7 },
-  // Add more data points as needed
-];
-
-// Test output for different time formats
-const timeFormats = ['year', 'month', 'week'];
-
-for (const format of timeFormats) {
-  const compressedData = compressDataByTime(data, format);
-  console.log(`Output for Time Format: '${format}':`);
-  console.log(compressedData);
-  console.log('');
-}
+console.log(datasetsList);
