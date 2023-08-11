@@ -1,4 +1,56 @@
 
+import spacy
+
+# Load the en_core_web_md model
+nlp = spacy.load("en_core_web_md")
+
+def group_gpe_entities(entities, proximity_threshold=5):
+    grouped_entities = []
+    temp_group = []
+
+    for entity in entities:
+        if entity.label_ == "GPE":
+            if not temp_group:
+                temp_group.append(entity)
+            else:
+                last_entity = temp_group[-1]
+                if abs(entity.start - last_entity.end) <= proximity_threshold:
+                    temp_group.append(entity)
+                else:
+                    grouped_entities.append(temp_group)
+                    temp_group = [entity]
+        else:
+            grouped_entities.append(temp_group)
+            grouped_entities.append([entity])
+            temp_group = []
+
+    # Process the last group
+    grouped_entities.append(temp_group)
+
+    return grouped_entities
+
+# Example text
+text = "123 , 3rd Street Anytown , California USA. I was become famous because In whole USA I am a gay."
+
+# Perform Named Entity Recognition (NER)
+doc = nlp(text)
+
+# Group GPE entities
+gpe_entities = [ent for ent in doc.ents if ent.label_ == "GPE"]
+grouped_gpe_entities = group_gpe_entities(gpe_entities)
+
+# Print the grouped GPE entities
+for group in grouped_gpe_entities:
+    if len(group) == 1:
+        print("Standalone GPE:", group[0])
+    else:
+        address_text = " ".join([str(entity) for entity in group])
+        print("Address:", address_text)
+
+
+
+
+
 John Smith, an American, works at Google, a renowned tech company headquartered in Mountain View, California. He often travels to Paris, France for business meetings. During his last trip, he visited the Eiffel Tower and enjoyed a delicious pizza by the Seine River. John recently read 'Hamlet,' a famous work of art, and he's planning to attend the upcoming
 Super Bowl event. He's also a strong advocate for human rights and believes in upholding the Geneva Convention.
 
