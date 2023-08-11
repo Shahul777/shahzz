@@ -1,3 +1,67 @@
+import spacy
+from spacy.matcher import Matcher
+
+nlp = spacy.load("en_core_web_md")
+
+text = "My credit card number is 1234-5678-9012-3456. My SSN is 123-45-6789. The address is 123 Main St. in Anytown, USA. Contact me at +91 6382010804."
+
+matcher = Matcher(nlp.vocab)
+
+credit_card_patterns = [
+    [{"TEXT": {"REGEX": r"\d{4}-\d{4}-\d{4}-\d{4}"}}],
+    [{"TEXT": {"REGEX": r"\d{16}"}}],
+    [{"TEXT": {"REGEX": r"\d{4}\s\d{4}\s\d{4}\s\d{4}"}}]
+]
+
+ssn_patterns = [
+    [{"TEXT": {"REGEX": r"\d{3}-\d{2}-\d{4}"}}],
+    [{"TEXT": {"REGEX": r"\d{9}"}}]
+]
+
+address_patterns = [
+    [{"ENT_TYPE": "GPE"}, {"LOWER": "in"}, {"ENT_TYPE": "GPE"}, {"ENT_TYPE": "GPE"}, {"TEXT": {"REGEX": r".+"}}],
+    [{"ENT_TYPE": "GPE"}, {"LOWER": "in"}, {"ENT_TYPE": "GPE"}, {"ENT_TYPE": "GPE"}, {"ENT_TYPE": "GPE"}, {"TEXT": {"REGEX": r".+"}}],
+    [{"ENT_TYPE": "GPE"}, {"LOWER": "in"}, {"TEXT": {"REGEX": r".+"}}]
+]
+
+phone_number_patterns = [
+    [{"TEXT": {"REGEX": r"\+\d{2}\s\d{10}"}}],
+    [{"TEXT": {"REGEX": r"\+\d{2}\s\d{3}-\d{3}-\d{4}"}}],
+    [{"TEXT": {"REGEX": r"\d{10}"}}],
+    [{"TEXT": {"REGEX": r"\d{3}-\d{3}-\d{4}"}}],
+    [{"TEXT": {"REGEX": r"\d{3}\s\d{3}\s\d{4}"}}]
+]
+
+for pattern in credit_card_patterns:
+    matcher.add("CREDIT_CARD", [pattern])
+
+for pattern in ssn_patterns:
+    matcher.add("SSN", [pattern])
+
+for pattern in address_patterns:
+    matcher.add("ADDRESS", [pattern])
+
+for pattern in phone_number_patterns:
+    matcher.add("PHONE_NUMBER", [pattern])
+
+doc = nlp(text)
+matches = matcher(doc)
+
+for match_id, start, end in matches:
+    span = doc[start:end]
+    if doc.vocab.strings[match_id] == "CREDIT_CARD":
+        print("Credit Card:", span.text)
+    elif doc.vocab.strings[match_id] == "SSN":
+        print("SSN:", span.text)
+    elif doc.vocab.strings[match_id] == "ADDRESS":
+        print("Address:", span.text)
+    elif doc.vocab.strings[match_id] == "PHONE_NUMBER":
+        print("Phone Number:", span.text)
+
+
+
+
+
 
 ValueError: [E178] Each pattern should be a list of dicts, but got: {'LIKE_NUM': True}. Maybe you accidentally
 passed a single pattern to Matcher.add instead of a list of patterns? If you only want to add one pattern, make sure to wrap it 
