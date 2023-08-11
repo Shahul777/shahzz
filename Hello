@@ -1,3 +1,9 @@
+
+ValueError: [E178] Each pattern should be a list of dicts, but got: {'LIKE_NUM': True}. Maybe you accidentally
+passed a single pattern to Matcher.add instead of a list of patterns? If you only want to add one pattern, make sure to wrap it 
+in a list. For example: `matcher.add('CUSTOM_DATE', [pattern])`
+
+
 \\d+\\s[A-Za-z\\s]+,\\s[A-Za-z\\s]+,\\s[A-Za-z\\s]+
 
 [A-Za-z]+\\s\\d+,\\s\\d+\\s[A-Za-z\\s]+,\\s[A-Za-z\\s]+,\\s[A-Za-z\\s]+,\\s[A-Za-z\\s]+
