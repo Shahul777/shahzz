@@ -1,4 +1,9 @@
-
+newspaper had date 01-jan-2000, my ssn is 336-45-6789, my phone number is +91 6382019804 
+John Doe's credit card number is 1234-5678-9012-3456 and his SSN is 123-45-6789. His phone number
+is (555) 555-5555. He works at XYZ Corp, located at 123 Main St. in Anytown, USA. His boss's name is
+Jane Smith and her email address is jane.smith@xyzcorp.com. John's email address is john.doe@gmail.com.
+He is a member of the local gym, which is
+located at 456 Center St. in Anytown, USA. His gym membership number is 987654321.
 import spacy
 
 # Load the en_core_web_md model
