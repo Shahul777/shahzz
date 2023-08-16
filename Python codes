@@ -1,4 +1,8 @@
 
+
+address_pattern = r'\b[\d/]+\s+[\w\s.,-]+\s+in\s+\w{2,20},?\s+\w{2,20},?\s+\w{2,20}\b'
+
+
 address_pattern = r'\b\d+\s+[\w\s.,-]
 +\s+\w{2,20}\s*,?
 \s+\w{2,20}\s*,?\s+\w{2,20}\b'
