@@ -1,3 +1,64 @@
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ExcelDropdownService {
+
+    public List<String> getDropdownValuesFromExcel(InputStream inputStream, int row, int col) throws IOException {
+        List<String> dropdownValues = new ArrayList<>();
+
+        try (Workbook workbook = new XSSFWorkbook(inputStream)) {
+            Sheet sheet = workbook.getSheetAt(0);
+            Row targetRow = sheet.getRow(row);
+
+            if (targetRow != null) {
+                Cell targetCell = targetRow.getCell(col);
+
+                if (targetCell != null) {
+                    CellStyle cellStyle = targetCell.getCellStyle();
+                    DataValidationHelper dvHelper = sheet.getDataValidationHelper();
+
+                    for (DataValidation dataValidation : sheet.getDataValidations()) {
+                        CellRangeAddressList addressList = dataValidation.getRegions();
+                        if (isCellInRange(targetCell, addressList)) {
+                            DataValidationConstraint constraint = dataValidation.getValidationConstraint();
+                            if (constraint.getExplicitListValues() != null) {
+                                CellRangeAddressList currentAddressList = new CellRangeAddressList(
+                                        targetCell.getRowIndex(), targetCell.getRowIndex(),
+                                        targetCell.getColumnIndex(), targetCell.getColumnIndex());
+
+                                DataValidation currentDataValidation = dvHelper.createValidation(constraint, currentAddressList);
+                                currentDataValidation.setShowDropDown(true);
+                                targetCell.setCellStyle(cellStyle);
+                                sheet.addValidationData(currentDataValidation);
+
+                                for (int i = 0; i < constraint.getExplicitListValues().length; i++) {
+                                    dropdownValues.add(targetCell.getStringCellValue());
+                                    targetCell.setCellValue("");
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return dropdownValues;
+    }
+
+    private boolean isCellInRange(Cell cell, CellRangeAddressList addressList) {
+        return addressList.getCellRangeAddresses().stream().anyMatch(address -> address.isInRange(cell));
+    }
+}
+
+
+
 import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
