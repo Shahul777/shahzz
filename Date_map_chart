@@ -1,3 +1,14 @@
+
+private boolean isCellInRange(Cell cell, CellRangeAddressList addressList) {
+    for (CellRangeAddress address : addressList.getCellRangeAddresses()) {
+        if (address.isInRange(cell.getRowIndex(), cell.getColumnIndex())) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
