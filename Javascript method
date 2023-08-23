@@ -1,3 +1,51 @@
+@Component
+public class TableConverter {
+    // ... Other methods ...
+
+    private Subsection getOrCreateSubsection(Section section, String subsectionName) {
+        Subsection subsection = null;
+        for (Subsection existingSubsection : section.getSubsections()) {
+            if (existingSubsection.getSubsectionName().equals(subsectionName)) {
+                subsection = existingSubsection;
+                break;
+            }
+        }
+
+        if (subsection == null) {
+            subsection = new Subsection();
+            subsection.setSubsectionName(subsectionName);
+            subsection.setSection(section);
+            section.getSubsections().add(subsection);
+        }
+
+        return subsection;
+    }
+
+    private QuestionSubsection getOrCreateQuestionSubsection(Subsection subsection, String questionSubsectionName) {
+        QuestionSubsection questionSubsection = null;
+        for (QuestionSubsection existingQuestionSubsection : subsection.getQuestionSubsections()) {
+            if (existingQuestionSubsection.getQuestionSubsectionName().equals(questionSubsectionName)) {
+                questionSubsection = existingQuestionSubsection;
+                break;
+            }
+        }
+
+        if (questionSubsection == null) {
+            questionSubsection = new QuestionSubsection();
+            questionSubsection.setQuestionSubsectionName(questionSubsectionName);
+            questionSubsection.setSubsection(subsection);
+            subsection.getQuestionSubsections().add(questionSubsection);
+        }
+
+        return questionSubsection;
+    }
+
+    // ... Other methods ...
+}
+
+
+
+
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
