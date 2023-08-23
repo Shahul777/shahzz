@@ -1,51 +1,35 @@
+import org.springframework.stereotype.Component;
+import java.util.*;
 
-boolean skipFirstRow = true;
+@Component
+public class TableConverter {
+    public List<Section> convertToStructuredObjects(List<List<String>> records) {
+        Map<String, Section> sectionMap = new LinkedHashMap<>();
 
         for (List<String> record : records) {
-            if (skipFirstRow) {
-                skipFirstRow = false;
-                continue;
+            String sectionName = record.get(0);
+            String subsectionName = record.get(1);
+            String questionSubsectionName = record.get(2);
+            String question = record.get(3);
+            String options = record.get(4); // This should be a comma-separated list
+            String answer = record.get(5);
+
+            List<String> optionsList = new ArrayList<>();
+            if (options != null && !options.isEmpty()) {
+                optionsList = Arrays.asList(options.split(","));
             }
 
+            Section section = sectionMap.computeIfAbsent(sectionName, Section::new);
+            Subsection subsection = section.getOrCreateSubsection(subsectionName);
+            QuestionSubsection questionSubsection = subsection.getOrCreateQuestionSubsection(questionSubsectionName);
+            TableEntry tableEntry = new TableEntry(question, answer, questionSubsection);
 
-
-
-import org.apache.poi.ss.usermodel.*;
-
-public class ExcelConverter {
-    public static List<List<String>> readExcelData(String excelFilePath) throws IOException {
-        List<List<String>> records = new ArrayList<>();
-        FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
-        Workbook workbook = WorkbookFactory.create(inputStream);
-        Sheet sheet = workbook.getSheetAt(0);
-
-        for (Row row : sheet) {
-            List<String> rowData = new ArrayList<>();
-            for (Cell cell : row) {
-                rowData.add(cell.toString());
+            for (String option : optionsList) {
+                OptionChoice optionChoice = new OptionChoice(option, tableEntry);
+                tableEntry.addOptionChoice(optionChoice);
             }
-            records.add(rowData);
         }
 
-        workbook.close();
-        inputStream.close();
-
-        return records;
-    }
-
-    public static List<Section> convertToStructuredObjects(List<List<String>> records) {
-        // ... Convert to structured objects as described in previous responses ...
-    }
-
-    public static void main(String[] args) {
-        try {
-            List<List<String>> excelData = readExcelData("path_to_your_excel_file.xlsx");
-            List<Section> structuredObjects = convertToStructuredObjects(excelData);
-
-            SectionRepository sectionRepository = /* Inject your Section repository here */;
-            sectionRepository.saveAll(structuredObjects);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return new ArrayList<>(sectionMap.values());
     }
 }
