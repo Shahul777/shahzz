@@ -1,3 +1,15 @@
+
+boolean skipFirstRow = true;
+
+        for (List<String> record : records) {
+            if (skipFirstRow) {
+                skipFirstRow = false;
+                continue;
+            }
+
+
+
+
 import org.apache.poi.ss.usermodel.*;
 
 public class ExcelConverter {
