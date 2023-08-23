@@ -1,222 +1,46 @@
-import spacy
-from spacy.matcher import Matcher
+// Assuming your entity classes are properly defined
 
-nlp = spacy.load("en_core_web_md")
+public class TableConverter {
+    public static List<Section> convertToStructuredObjects(List<List<String>> records) {
+        Map<String, Section> sectionMap = new LinkedHashMap<>();
 
-text = "My credit card number is 1234-5678-9012-3456. Contact me at +91 6382010804. The address is 123 Main St. in Anytown, USA."
+        for (List<String> record : records) {
+            String sectionName = record.get(0);
+            String subsectionName = record.get(1);
+            String questionSubsectionName = record.get(2);
+            String question = record.get(3);
+            String options = record.get(4); // This should be a comma-separated list
+            String answer = record.get(5);
 
-matcher = Matcher(nlp.vocab)
+            List<String> optionsList = new ArrayList<>();
+            if (options != null && !options.isEmpty()) {
+                String[] optionsArray = options.split(",");
+                optionsList.addAll(Arrays.asList(optionsArray));
+            }
 
-credit_card_pattern = [{"SHAPE": "dddd-dddd-dddd-dddd"}]  # Example credit card shape
+            OptionChoiceRepository optionChoiceRepository = /* Inject your OptionChoice repository here */;
+            TableEntry tableEntry = new TableEntry();
+            for (String option : optionsList) {
+                OptionChoice optionChoice = new OptionChoice();
+                optionChoice.setOptionChoiceName(option);
+                optionChoice.setTableEntry(tableEntry);
+                optionChoiceRepository.save(optionChoice);
+            }
 
-matcher.add("CREDIT_CARD", [credit_card_pattern])
+            sectionMap.computeIfAbsent(sectionName, Section::new)
+                    .getSubsection(subsectionName)
+                    .getQuestionSubsection(questionSubsectionName)
+                    .addQuestion(new TableEntry(question, answer, optionsList));
+        }
 
-doc = nlp(text)
-matches = matcher(doc)
+        return new ArrayList<>(sectionMap.values());
+    }
 
-for match_id, start, end in matches:
-    span = doc[start:end]
-    if doc.vocab.strings[match_id] == "CREDIT_CARD":
-        print("Credit Card:", span.text)
+    public static void main(String[] args) {
+        List<List<String>> records = /* Your list of records, each record being a list of strings */;
+        List<Section> structuredObjects = convertToStructuredObjects(records);
 
-
-import spacy
-from spacy.matcher import Matcher
-
-nlp = spacy.load("en_core_web_md")
-
-text = "My SSN is 123-45-6789. Contact me at +91 6382010804. The address is 123 Main St. in Anytown, USA."
-
-matcher = Matcher(nlp.vocab)
-
-ssn_pattern = [{"SHAPE": "ddd-dd-dddd"}]  # Example SSN shape
-phone_number_pattern = [{"SHAPE": "dd-dddd-ddddd"}]  # Example phone number shape
-address_pattern = [{"ENT_TYPE": "GPE"}, {"LOWER": "in"}, {"ENT_TYPE": "GPE"}, {"TEXT": {"REGEX": r".+"}}]
-
-matcher.add("SSN", [ssn_pattern])
-matcher.add("PHONE_NUMBER", [phone_number_pattern])
-matcher.add("ADDRESS", [address_pattern])
-
-doc = nlp(text)
-matches = matcher(doc)
-
-for match_id, start, end in matches:
-    span = doc[start:end]
-    if doc.vocab.strings[match_id] == "SSN":
-        print("SSN:", span.text)
-    elif doc.vocab.strings[match_id] == "PHONE_NUMBER":
-        print("Phone Number:", span.text)
-    elif doc.vocab.strings[match_id] == "ADDRESS":
-        print("Address:", span.text)
-
-
-
-import spacy
-from spacy.matcher import Matcher
-
-nlp = spacy.load("en_core_web_md")
-
-text = "My SSN is 123-45-6789. Contact me at +91 6382010804. The address is 123 Main St. in Anytown, USA."
-
-matcher = Matcher(nlp.vocab)
-
-ssn_pattern = [{"TEXT": {"REGEX": r"\d{3}-\d{2}-\d{4}"}}]
-phone_number_pattern = [{"TEXT": {"REGEX": r"\+\d{2}\s\d{10}"}}]
-address_pattern = [{"ENT_TYPE": "GPE"}, {"LOWER": "in"}, {"ENT_TYPE": "GPE"}, {"TEXT": {"REGEX": r".+"}}]
-
-matcher.add("SSN", [ssn_pattern])
-matcher.add("PHONE_NUMBER", [phone_number_pattern])
-matcher.add("ADDRESS", [address_pattern])
-
-doc = nlp(text)
-matches = matcher(doc)
-
-for match_id, start, end in matches:
-    span = doc[start:end]
-    if doc.vocab.strings[match_id] == "SSN":
-        print("SSN:", span.text)
-    elif doc.vocab.strings[match_id] == "PHONE_NUMBER":
-        print("Phone Number:", span.text)
-    elif doc.vocab.strings[match_id] == "ADDRESS":
-        print("Address:", span.text)
-
-
-
-
-import spacy
-from spacy.matcher import Matcher
-
-nlp = spacy.load("en_core_web_md")
-
-text = "My credit card number is 1234-5678-9012-3456. My SSN is 123-45-6789. The address is 123 Main St. in Anytown, USA. Contact me at +91 6382010804."
-
-matcher = Matcher(nlp.vocab)
-
-credit_card_patterns = [
-    [{"TEXT": {"REGEX": r"\d{4}-\d{4}-\d{4}-\d{4}"}}],
-    [{"TEXT": {"REGEX": r"\d{16}"}}],
-    [{"TEXT": {"REGEX": r"\d{4}\s\d{4}\s\d{4}\s\d{4}"}}]
-]
-
-ssn_patterns = [
-    [{"TEXT": {"REGEX": r"\d{3}-\d{2}-\d{4}"}}],
-    [{"TEXT": {"REGEX": r"\d{9}"}}]
-]
-
-address_patterns = [
-    [{"ENT_TYPE": "GPE"}, {"LOWER": "in"}, {"ENT_TYPE": "GPE"}, {"ENT_TYPE": "GPE"}, {"TEXT": {"REGEX": r".+"}}],
-    [{"ENT_TYPE": "GPE"}, {"LOWER": "in"}, {"ENT_TYPE": "GPE"}, {"ENT_TYPE": "GPE"}, {"ENT_TYPE": "GPE"}, {"TEXT": {"REGEX": r".+"}}],
-    [{"ENT_TYPE": "GPE"}, {"LOWER": "in"}, {"TEXT": {"REGEX": r".+"}}]
-]
-
-phone_number_patterns = [
-    [{"TEXT": {"REGEX": r"\+\d{2}\s\d{10}"}}],
-    [{"TEXT": {"REGEX": r"\+\d{2}\s\d{3}-\d{3}-\d{4}"}}],
-    [{"TEXT": {"REGEX": r"\d{10}"}}],
-    [{"TEXT": {"REGEX": r"\d{3}-\d{3}-\d{4}"}}],
-    [{"TEXT": {"REGEX": r"\d{3}\s\d{3}\s\d{4}"}}]
-]
-
-for pattern in credit_card_patterns:
-    matcher.add("CREDIT_CARD", [pattern])
-
-for pattern in ssn_patterns:
-    matcher.add("SSN", [pattern])
-
-for pattern in address_patterns:
-    matcher.add("ADDRESS", [pattern])
-
-for pattern in phone_number_patterns:
-    matcher.add("PHONE_NUMBER", [pattern])
-
-doc = nlp(text)
-matches = matcher(doc)
-
-for match_id, start, end in matches:
-    span = doc[start:end]
-    if doc.vocab.strings[match_id] == "CREDIT_CARD":
-        print("Credit Card:", span.text)
-    elif doc.vocab.strings[match_id] == "SSN":
-        print("SSN:", span.text)
-    elif doc.vocab.strings[match_id] == "ADDRESS":
-        print("Address:", span.text)
-    elif doc.vocab.strings[match_id] == "PHONE_NUMBER":
-        print("Phone Number:", span.text)
-
-
-
-
-
-
-ValueError: [E178] Each pattern should be a list of dicts, but got: {'LIKE_NUM': True}. Maybe you accidentally
-passed a single pattern to Matcher.add instead of a list of patterns? If you only want to add one pattern, make sure to wrap it 
-in a list. For example: `matcher.add('CUSTOM_DATE', [pattern])`
-
-
-\\d+\\s[A-Za-z\\s]+,\\s[A-Za-z\\s]+,\\s[A-Za-z\\s]+
-
-[A-Za-z]+\\s\\d+,\\s\\d+\\s[A-Za-z\\s]+,\\s[A-Za-z\\s]+,\\s[A-Za-z\\s]+,\\s[A-Za-z\\s]+
-
-\\d+\\s[A-Za-z\\s]+,\\s[A-Za-z\\s]+,\\s[A-Za-z]+\\s\\d+,\\s[A-Za-z\\s]+
-
-[A-Za-z]+\\s\\d+,\\s\\d+\\s[A-Za-z\\s]+,\\s[A-Za-z\\s]+,\\s[A-Za-z\\s]+,\\s[A-Za-z\\s]+,\\s[A-Za-z\\s]+
-
-
-
-.......
-\+?\d{1,4}[-.\s]?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,8}
-\(\d{3}\) \d{3}-\d{4}
-
-<!-- app.component.html -->
-<ngx-charts-area-chart
-  [view]="[width, height]"
-  [results]="data"
-  [xAxis]="showXAxis"
-  [yAxis]="showYAxis"
-  [showXAxisLabel]="showXAxisLabel"
-  [showYAxisLabel]="showYAxisLabel"
-  [xAxisLabel]="xAxisLabel"
-  [yAxisLabel]="yAxisLabel"
-  [timeline]="timeline"
-  [gradient]="gradient"
-  [autoScale]="autoScale"
->
-</ngx-charts-area-chart>
-
-
-// app.component.ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
-export class AppComponent {
-  width: number = 600;
-  height: number = 400;
-
-  // Replace this data with your actual data
-  data = [
-    {
-      name: 'Series A',
-      series: [
-        { name: '2010', value: 100 },
-        { name: '2011', value: 200 },
-        { name: '2012', value: 150 },
-        // Add more data points here
-      ]
-    },
-    // Add more series here
-  ];
-
-  showXAxis = true;
-  showYAxis = true;
-  showXAxisLabel = true;
-  showYAxisLabel = true;
-  xAxisLabel = 'Year';
-  yAxisLabel = 'Value';
-  timeline = true;
-  gradient = false;
-  autoScale = true;
+        SectionRepository sectionRepository = /* Inject your Section repository here */;
+        sectionRepository.saveAll(structuredObjects);
+    }
 }
