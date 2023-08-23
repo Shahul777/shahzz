@@ -1,10 +1,10 @@
-import org.springframework.stereotype.Component;
-import java.util.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 
 @Component
 public class TableConverter {
     public List<Section> convertToStructuredObjects(List<List<String>> records) {
-        Map<String, Section> sectionMap = new LinkedHashMap<>();
+        Multimap<String, Section> sectionMap = ArrayListMultimap.create();
 
         for (List<String> record : records) {
             String sectionName = record.get(0);
@@ -19,9 +19,9 @@ public class TableConverter {
                 optionsList = Arrays.asList(options.split(","));
             }
 
-            Section section = sectionMap.computeIfAbsent(sectionName, Section::new);
-            Subsection subsection = section.getOrCreateSubsection(subsectionName);
-            QuestionSubsection questionSubsection = subsection.getOrCreateQuestionSubsection(questionSubsectionName);
+            Section section = getOrCreateSection(sectionMap, sectionName);
+            Subsection subsection = getOrCreateSubsection(section, subsectionName);
+            QuestionSubsection questionSubsection = getOrCreateQuestionSubsection(subsection, questionSubsectionName);
             TableEntry tableEntry = new TableEntry(question, answer, questionSubsection);
 
             for (String option : optionsList) {
@@ -32,4 +32,18 @@ public class TableConverter {
 
         return new ArrayList<>(sectionMap.values());
     }
+
+    private Section getOrCreateSection(Multimap<String, Section> sectionMap, String sectionName) {
+        Section section = sectionMap.get(sectionName).stream().findFirst().orElse(null);
+        if (section == null) {
+            section = new Section();
+            section.setSectionName(sectionName);
+            sectionMap.put(sectionName, section);
+        }
+        return section;
+    }
+
+    // Similar methods for Subsection and QuestionSubsection creation...
+
+    // Other methods...
 }
