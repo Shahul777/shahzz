@@ -1,3 +1,19 @@
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface DiscoveryMatchResultRepository extends JpaRepository<DiscoveryMatchResult, Long> {
+    
+    @Query("SELECT COUNT(DISTINCT dm.discoveryReport.datastoreId) FROM DiscoveryMatchResult dm WHERE dm.isSensitive = true AND dm.entityId = :entityId")
+    long countDistinctDatastoreIdByIsSensitiveTrueAndEntityId(long entityId);
+}
+
+
+
+
+
 public RestTemplate getRestTemplate() {
 
         try {
