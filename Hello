@@ -1,4 +1,29 @@
+// Sample list of objects with start and completion times
+const objectsList = [
+  { startTime: new Date('2023-09-15T08:00:00'), completionTime: new Date('2023-09-15T12:30:00') },
+  { startTime: new Date('2023-09-15T09:30:00'), completionTime: new Date('2023-09-15T14:45:00') },
+  // Add more objects as needed
+];
 
+// Calculate the total time difference in milliseconds
+let totalMilliseconds = 0;
+objectsList.forEach(obj => {
+  const startTime = obj.startTime.getTime();
+  const completionTime = obj.completionTime.getTime();
+  const timeDifference = completionTime - startTime;
+  totalMilliseconds += timeDifference;
+});
+
+// Calculate the average time in milliseconds
+const averageMilliseconds = totalMilliseconds / objectsList.length;
+
+// Convert average time to hours, minutes, and seconds
+const averageHours = Math.floor(averageMilliseconds / (1000 * 60 * 60));
+const averageMinutes = Math.floor((averageMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+const averageSeconds = Math.floor((averageMilliseconds % (1000 * 60)) / 1000);
+
+// Display the average time
+console.log(`Average Time: ${averageHours} hours, ${averageMinutes} minutes, ${averageSeconds} seconds`);
 
 
 
