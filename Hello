@@ -1,45 +1,9 @@
-// Sample list of objects with start and completion times
-const objectsList = [
-  { startTime: new Date('2023-09-15T08:00:00'), completionTime: new Date('2023-09-15T12:30:00') },
-  { startTime: new Date('2023-09-15T09:30:00'), completionTime: new Date('2023-09-15T14:45:00') },
-  // Add more objects as needed
-];
+https://apc01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fsystem-test.onvue.com%2Fsystem_test%3Fcustomer%3Dpearson_vue%26clientcode%3DAWS%26candidate_id%3D304625309%26registration_id%3D459660878%26locale%3Den-US&data=05%7C01%7Cshahul.m%40infosys.com%7Cfee5aef098484724e31908dbb7a4fdc3%7C63ce7d592f3e42cda8ccbe764cff5eb6%7C0%7C0%7C638305691508662612%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=pHnsu4e8pXD21K%2B%2F30Kgvp7PsU4UbMevQCXxu8w%2FVls%3D&reserved=0
 
-// Calculate the total time difference in milliseconds
-let totalMilliseconds = 0;
-objectsList.forEach(obj => {
-  const startTime = obj.startTime.getTime();
-  const completionTime = obj.completionTime.getTime();
-  const timeDifference = completionTime - startTime;
-  totalMilliseconds += timeDifference;
-});
-
-// Calculate the average time in milliseconds
-const averageMilliseconds = totalMilliseconds / objectsList.length;
-
-// Convert average time to hours, minutes, and seconds
-const averageHours = Math.floor(averageMilliseconds / (1000 * 60 * 60));
-const averageMinutes = Math.floor((averageMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
-const averageSeconds = Math.floor((averageMilliseconds % (1000 * 60)) / 1000);
-
-// Display the average time
-console.log(`Average Time: ${averageHours} hours, ${averageMinutes} minutes, ${averageSeconds} seconds`);
+https://apc01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fexamlaunchpad.pearsonvue.com%2Fentry-point%2Flaunch-exam%2FAWS%2FOP%3FregistrationToken%3D9j3xrjq%252Furx4f4sNKIDK9twgI0T7%252FMcEV%252BUiNTZ4jZ%252BjXZm6k4Ojzd4hR%252FMSp5DvVEDxnBVIkuF5huxZU4j3qmZHvSlhGx2pgfyW%252FGgeZDVIfKhCr6YoTx1Vr%252BjDvTwkawopM5Xev7jBZHZD2xbOQg%253D%253D%26locale%3Den-US&data=05%7C01%7Cshahul.m%40infosys.com%7Cfee5aef098484724e31908dbb7a4fdc3%7C63ce7d592f3e42cda8ccbe764cff5eb6%7C0%7C0%7C638305691508662612%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=mt86cnaiGzMIWamlldsRy2stqncZEzMNA%2FpArHgjDKg%3D&reserved=0
 
 
 
-https://apc01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fexamlaunchpad.pearsonvue.com%2Fentry-point%2Flaunch-exam%2FAWS%2FOP%3FregistrationToken%3DX3KXARZq1th6Ho1yju5x4NzMBPtFLZrpAqNXsnMLnkY8icXpkXZ1F4f3rnjgVaUHBy0BW1gaCoUAKBGbOom8F3UqHpRrjf0wZOB8CUmuZAQe9%252B55dtREVa73dU0JEF8vd8KGE5hFxcy5axnCGXiaWg%253D%253D%26locale%3Den-US&data=05%7C01%7Cshahul.m%40infosys.com%7C90b64e55300e49c94d3b08dbb06e7a89%7C63ce7d592f3e42cda8ccbe764cff5eb6%7C0%7C0%7C638297760805998046%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=Rg%2BPpcKEarGu34zLVzNAA1amUL9ynOPuE1ONprUHeEY%3D&reserved=0
+............
 
-
-
-
-
-https://apc01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.aws.training%2Fcertification&data=05%7C01%7Cshahul.m%40infosys.com%7C7a63df82ac8a4c73b66d08dbb383ee84%7C63ce7d592f3e42cda8ccbe764cff5eb6%7C0%7C0%7C638301151465150113%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=Bcz4B24DRDjTC7vq3vk7xn3FfRIY6NRyH%2FJQxvIj0%2Fs%3D&reserved=0
-
-
-
-
-
-https://apc01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fhome.pearsonvue.com%2Fonvuehelp&data=05%7C01%7Cshahul.m%40infosys.com%7C90b64e55300e49c94d3b08dbb06e7a89%7C63ce7d592f3e42cda8ccbe764cff5eb6%7C0%7C0%7C638297760805998046%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=OJuOcwzK%2Fhme3HOz5XOv0NE6ZMr49CkceMomZHglKqc%3D&reserved=0
-
-
-https://apc01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fsystem-test.onvue.com%2Fsystem_test%3Fcustomer%3Dpearson_vue%26clientcode%3DAWS%26candidate_id%3D304625309%26registration_id%3D459006247%26locale%3Den-US&data=05%7C01%7Cshahul.m%40infosys.com%7C90b64e55300e49c94d3b08dbb06e7a89%7C63ce7d592f3e42cda8ccbe764cff5eb6%7C0%7C0%7C638297760805998046%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=JcnZFqumDTqa5cMa7Z6uKj%2BHWgjOEXoeyXu4LeSwfqE%3D&reserved=0
+https://apc01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fhome.pearsonvue.com%2Fonvuehelp&data=05%7C01%7Cshahul.m%40infosys.com%7Cfee5aef098484724e31908dbb7a4fdc3%7C63ce7d592f3e42cda8ccbe764cff5eb6%7C0%7C0%7C638305691508662612%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=b9ZF0LHopflMmE9Dg3wvirTSGDR6TvVlX0GU6H7Mpb8%3D&reserved=0
