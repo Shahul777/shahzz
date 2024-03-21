@@ -1,4 +1,38 @@
+import phonenumbers
+from postal_address_normalizer import AddressParser
 
+def extract_sensitive_info(text):
+    # Extract phone numbers using phonenumbers library
+    phone_numbers = []
+    for match in phonenumbers.PhoneNumberMatcher(text, None):
+        phone_numbers.append(phonenumbers.format_number(match.number, phonenumbers.PhoneNumberFormat.E164))
+
+    # Extract addresses using postal-address-normalizer library
+    parser = AddressParser()
+    parsed_addresses = parser.parse_address(text)
+    addresses = []
+    for addr in parsed_addresses:
+        address = ', '.join(addr)
+        addresses.append(address)
+
+    return phone_numbers, addresses
+
+def main():
+    # Sample text
+    text = "My name is Shahul, my mobile numbers are +1 (123) 456-7890 and +91 9876543210, and my addresses are 123 Main St, Anytown, USA and 456 Oak St, Othertown, India."
+
+    try:
+        # Extract sensitive information
+        phone_numbers, addresses = extract_sensitive_info(text)
+
+        # Print results
+        print("Phone Numbers:", phone_numbers)
+        print("Addresses:", addresses)
+    except Exception as e:
+        print("Error:", e)
+
+if __name__ == "__main__":
+    main()
 String regex = "\\d+\\s+[^,]+,\\s+[^,]+,\\s+[^,]+,\\s+\\w{2,3}\\s*\\d{0,5}";
 
 
