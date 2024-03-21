@@ -1,3 +1,9 @@
+
+String regex = "\\d+\\s+[^,]+,\\s+[^,]+,\\s+[^,]+,\\s+\\w{2,3}\\s*\\d{0,5}";
+
+
+
+
 https://apc01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fsystem-test.onvue.com%2Fsystem_test%3Fcustomer%3Dpearson_vue%26clientcode%3DAWS%26candidate_id%3D304625309%26registration_id%3D459660878%26locale%3Den-US&data=05%7C01%7Cshahul.m%40infosys.com%7Cfee5aef098484724e31908dbb7a4fdc3%7C63ce7d592f3e42cda8ccbe764cff5eb6%7C0%7C0%7C638305691508662612%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=pHnsu4e8pXD21K%2B%2F30Kgvp7PsU4UbMevQCXxu8w%2FVls%3D&reserved=0
 
 https://apc01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fexamlaunchpad.pearsonvue.com%2Fentry-point%2Flaunch-exam%2FAWS%2FOP%3FregistrationToken%3D9j3xrjq%252Furx4f4sNKIDK9twgI0T7%252FMcEV%252BUiNTZ4jZ%252BjXZm6k4Ojzd4hR%252FMSp5DvVEDxnBVIkuF5huxZU4j3qmZHvSlhGx2pgfyW%252FGgeZDVIfKhCr6YoTx1Vr%252BjDvTwkawopM5Xev7jBZHZD2xbOQg%253D%253D%26locale%3Den-US&data=05%7C01%7Cshahul.m%40infosys.com%7Cfee5aef098484724e31908dbb7a4fdc3%7C63ce7d592f3e42cda8ccbe764cff5eb6%7C0%7C0%7C638305691508662612%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=mt86cnaiGzMIWamlldsRy2stqncZEzMNA%2FpArHgjDKg%3D&reserved=0
