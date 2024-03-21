@@ -1,3 +1,42 @@
+
+
+
+
+import re
+
+def find_phone_number(string, phone_number):
+    # Remove spaces from the provided phone number
+    phone_number = phone_number.replace(" ", "")
+
+    # Define the regular expression pattern to match the phone number
+    pattern = re.compile(re.escape(phone_number))
+
+    # Search for the phone number pattern in the string
+    match = pattern.search(string)
+
+    if match:
+        # Return the start and end index of the matched phone number
+        return match.start(), match.end()
+    else:
+        return None
+
+# Test data
+string = "France: +33 1 23 45 67 89"
+phone_number = "+33123456789"
+
+# Find the phone number in the string
+result = find_phone_number(string, phone_number)
+
+if result:
+    start_index, end_index = result
+    print("Phone number found. Start index:", start_index, "End index:", end_index)
+else:
+    print("Phone number not found in the string.")
+
+
+
+
+
 import phonenumbers
 from postal_address_normalizer import AddressParser
 
