@@ -1,3 +1,32 @@
+def find_substring_with_spaces(substring, string):
+    # Remove whitespace from both the substring and the string
+    substring_stripped = ''.join(substring.split())
+    string_stripped = ''.join(string.split())
+
+    # Find the substring without spaces in the stripped string
+    index = string_stripped.find(substring_stripped)
+    
+    if index != -1:
+        # Calculate start index including spaces
+        start_index = string.find(string_stripped[:index])
+
+        # Calculate end index including spaces
+        end_index = start_index + len(substring)
+        return start_index, end_index
+    else:
+        return -1, -1
+
+# Test case
+string1 = "abc"
+string2 = "a b c"
+start_index, end_index = find_substring_with_spaces(string1, string2)
+print("Start index:", start_index)
+print("End index:", end_index)
+
+
+
+
+
 ^(\d{1,5}\s+[\w\s]+),\s*([\w\s]+),\s*([\w\s]+),\s*([A-Za-z]{2,})\s*(\d{5})?$
 ^.*?(\d{1,5}\s+\w+(\s+\w+){0,2}),\s*(\w+(\s+\w+){0,2}),\s*([A-Za-z]{2,})\s*(\d{5})?.*$
 
