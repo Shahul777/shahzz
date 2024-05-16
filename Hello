@@ -1,3 +1,76 @@
+-- Creating the first table (Customers)
+CREATE TABLE Customers (
+    customer_id NUMBER PRIMARY KEY,
+    customer_name VARCHAR2(100),
+    email VARCHAR2(100)
+);
+
+-- Creating the second table (Orders)
+CREATE TABLE Orders (
+    order_id NUMBER PRIMARY KEY,
+    customer_id NUMBER,
+    order_date DATE,
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+);
+
+-- Creating the third table (Products)
+CREATE TABLE Products (
+    product_id NUMBER PRIMARY KEY,
+    product_name VARCHAR2(100),
+    price NUMBER
+);
+
+-- Creating the fourth table (Addresses)
+CREATE TABLE Addresses (
+    address_id NUMBER PRIMARY KEY,
+    address_line VARCHAR2(100),
+    city VARCHAR2(50),
+    country VARCHAR2(50)
+);
+
+-- Inserting data into Customers
+INSERT INTO Customers (customer_id, customer_name, email)
+VALUES (1, 'John Smith', 'john@example.com'),
+       (2, 'Alice Johnson', 'alice@example.com'),
+       (3, 'Michael Brown', 'michael@example.com'),
+       (4, 'Emily Davis', 'emily@example.com'),
+       (5, 'Daniel Wilson', 'daniel@example.com'),
+       (6, 'Sophia Martinez', 'sophia@example.com');
+
+-- Inserting data into Orders
+INSERT INTO Orders (order_id, customer_id, order_date)
+VALUES (1, 1, TO_DATE('2024-05-16', 'YYYY-MM-DD')),
+       (2, 2, TO_DATE('2024-05-15', 'YYYY-MM-DD')),
+       (3, 3, TO_DATE('2024-05-14', 'YYYY-MM-DD')),
+       (4, 4, TO_DATE('2024-05-13', 'YYYY-MM-DD')),
+       (5, 5, TO_DATE('2024-05-12', 'YYYY-MM-DD')),
+       (6, 6, TO_DATE('2024-05-11', 'YYYY-MM-DD'));
+
+-- Inserting data into Products
+INSERT INTO Products (product_id, product_name, price)
+VALUES (1, 'Laptop', 1000),
+       (2, 'Smartphone', 800),
+       (3, 'Headphones', 100),
+       (4, 'Tablet', 600),
+       (5, 'Smartwatch', 300),
+       (6, 'Camera', 1200);
+
+-- Inserting data into Addresses
+INSERT INTO Addresses (address_id, address_line, city, country)
+VALUES (1, '123 Main St', 'New York', 'USA'),
+       (2, '456 Elm St', 'Los Angeles', 'USA'),
+       (3, '789 Oak St', 'Chicago', 'USA'),
+       (4, '101 Pine St', 'Houston', 'USA'),
+       (5, '222 Maple St', 'San Francisco', 'USA'),
+       (6, '333 Cedar St', 'Miami', 'USA');
+
+
+
+
+
+
+
+
 def find_substring_with_spaces(substring, string):
     # Remove whitespace from both the substring and the string
     substring_stripped = ''.join(substring.split())
