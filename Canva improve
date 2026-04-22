@@ -1,0 +1,21 @@
+Here are the exact mathematical specifications for the 3 Layout Variants:
+(Note: The 13x19 page always has a 0.5-inch left margin and the grid always occupies a 12x18 inch bounding box, leaving a 1-inch margin at the bottom for the label).
+Variant 1: "4x3 Polaroid (18 per sheet)"
+Grid: 3 columns x 6 rows (Max 18 images).
+Outer Cell: 4 inches Wide x 3 inches High.
+Image Processing: Crop to a 2.5 (W) : 3 (H) aspect ratio. Rotate 90 degrees clockwise.
+Inner Placement: Final image drawn at 3 inches W x 2.5 inches H.
+Offsets inside cell: X offset = +0.75 inches (from left of cell), Y offset = +0.25 inches (from bottom of cell).
+Variant 2: "3x2 Polaroid (36 per sheet)"
+Grid: 4 columns x 9 rows (Max 36 images).
+Outer Cell: 3 inches Wide x 2 inches High.
+Image Processing: Crop to a 1.7 (W) : 2.25 (H) aspect ratio. Rotate 90 degrees clockwise.
+Inner Placement: Final image drawn at 2.25 inches W x 1.7 inches H.
+Offsets inside cell: X offset = +0.57 inches (from left of cell), Y offset = +0.15 inches (from bottom of cell).
+Variant 3: "3x3 Square (24 per sheet)"
+Grid: 4 columns x 6 rows (Max 24 images).
+Outer Cell: 3 inches Wide x 3 inches High.
+Image Processing: Crop to a 1:1 aspect ratio (Square). DO NOT rotate this variant.
+Inner Placement: Final image drawn at 2.6 inches W x 2.6 inches H.
+Offsets inside cell: X offset = +0.2 inches (from left of cell), Y offset = +0.2 inches (from bottom of cell).
+Please provide the complete, updated app.py script. Ensure the UI dynamically updates the 'Step 1' label text to reflect the maximum number of photos allowed (18, 36, or 24) depending on which layout is selected from the dropdown."
