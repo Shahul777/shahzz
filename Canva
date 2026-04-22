@@ -1,0 +1,30 @@
+Act as an expert Python developer and UI designer. I need a robust, production-ready desktop application using tkinter, Pillow (PIL), and reportlab to automate a pre-printing workflow for my e-commerce photo print brand, Basa.
+Context: I process dozens of orders daily. Customers submit folders of up to 18 smartphone photos. This app needs to automatically convert, crop, rotate, and precisely place these photos into a 13x19 inch PDF template with cut marks, ready for a professional production printer.
+Please write the complete, well-commented Python code (app.py) based on these strict requirements:
+1. GUI Requirements (tkinter):
+A clean, modern, and intuitive interface.
+A 'Select Order Folder' button to choose the directory containing the images.
+A display label showing the currently selected folder path.
+A 'Generate CMYK Print PDF' button to start processing.
+Implement a progress bar or status text to show processing progress (since converting to CMYK and generating the PDF can take a few seconds).
+Success/Error message boxes to handle empty folders, invalid files, or successful PDF creation.
+2. Image Processing Requirements (Pillow):
+Read up to 18 standard image files (.jpg, .png, .heic if supported/converted) from the selected folder.
+CRITICAL - Color Profile: Every image MUST be converted to CMYK color mode before saving to the PDF to ensure accurate professional printing. Handle transparent PNGs by flattening them to RGB with a white background before the CMYK conversion.
+Crop & Aspect Ratio: Crop each image to a precise 2.5 (width) to 3 (height) aspect ratio. Use high-quality resampling (e.g., Image.Resampling.LANCZOS).
+Rotation: Rotate the cropped image exactly 90 degrees clockwise so it is in landscape format (3x2.5 inches).
+Save these temporarily as high-quality CMYK JPEGs to be placed on the PDF, then delete the temporary files after the PDF is generated.
+3. PDF Layout Specifications (reportlab):
+Page Size: 13 inches (width) x 19 inches (height).
+Grid Layout: 3 columns by 6 rows (18 cells total).
+Cell Dimensions: Each placeholder cell is 4 inches wide and 3 inches high.
+Grid Placement: The entire 3x6 grid (12x18 inches total area) must start exactly 0.5 inches from the left edge of the page. The bottom of the grid should sit 1 inch above the bottom edge of the page.
+Photo Placement Inside Cell: The processed, rotated photo (now 3 inches wide by 2.5 inches high) must be placed inside its respective 4x3 inch cell. Offset it so there is a 0.75-inch gap from the left edge of the cell, and a 0.25-inch gap from the bottom/top of the cell.
+4. Cut Marks and Labels (CMYK Colors):
+Import CMYKColor from reportlab.lib.colors.
+Cut Marks: Use a CMYK grey (CMYKColor(0, 0, 0, 0.5)) to draw very light, subtle cut marks at all four corners of EVERY 4x3 inch cell. The lines should be 0.1 inches long and 0.5 points thick.
+Order Label: Use CMYK Black (CMYKColor(0, 0, 0, 1.0)). At the bottom center of the 13x19 page (X=6.5 inches, Y=0.5 inches from the bottom edge), print the selected folder's name (which serves as the Order ID) in a clear, 14pt Helvetica font.
+5. Robustness:
+Wrap the processing logic in try/except blocks. If one image is corrupted, it should log the error or skip it rather than crashing the whole application.
+Ensure the user is prompted with a 'Save As' dialog to choose where to save the final PDF, defaulting the file name to {FolderName}_Print_Basa.pdf.
+Provide the full, clean code ready to be executed."
