@@ -1,0 +1,9 @@
+​"I need to add an intelligent 'Auto-Adjust' feature to the image processing pipeline in our Python application, similar to Canva's auto-adjust.
+​Before cropping, rotating, and converting the image to CMYK, the script must automatically enhance the image based on its unique properties. Please implement an auto_enhance_image(img) function using Pillow (PIL.ImageOps and PIL.ImageEnhance)
+that performs the following steps:
+​Auto-Contrast (Blacks/Whites/Shadows): Use ImageOps.autocontrast(img, cutoff=1) to automatically map the darkest pixels to true black and the lightest to true white. This mathematically mimics adjusting the 'Blacks', 'Whites', 'Shadows', and 'Contrast' sliders.
+​Dynamic Brightness (Exposure): Calculate the perceived brightness of the image (e.g., using ImageStat.Stat(img).mean). If the image is inherently dark, use ImageEnhance.Brightness to dynamically boost the exposure slightly.
+​Vibrance/Saturation Boost: Most smartphone photos need a slight color bump before printing. Use ImageEnhance.Color to apply a subtle, uniform saturation boost (e.g., an enhancement factor of 1.15 or 1.2).
+​Print Sharpening: Printing inherently softens images due to ink bleed/toner spread. Use ImageEnhance.Sharpness to apply a mild sharpening effect (e.g., factor of 1.2) to mimic Canva's 'Clarity/Sharpness' adjustments.
+​Integration: > Ensure this auto_enhance_image function is called immediately after opening the image in RGB mode, but before the script converts it to CMYK and crops it to the 2.5x3 aspect ratio. Wrap the enhancement logic in a try/except block to ensure that
+if a specific image cannot be auto-adjusted, it safely falls back to the original image without crashing the batch process
