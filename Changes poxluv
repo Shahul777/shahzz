@@ -1,0 +1,13 @@
+I need to refine the cut mark (trimmer guide) logic for my Python reportlab photo printing application.
+My previous instruction resulted in lines being drawn inside the 12x18 inch grid, between the photos. This is incorrect. If the cutting blade shifts slightly, the line will be visible on the customer's photo.
+Please update the app.py script with the following Perimeter-Only Cut Mark Logic:
+1. The Golden Rule: Do NOT draw any lines, cut marks, or borders inside the 12x18 inch grid area where the photos are placed. The internal space between the frames must remain completely blank white.
+2. Outer Edge Crop Marks Only:
+Only draw cut marks along the extreme outer perimeter of the 12x18 inch bounding box. Use a dark CMYKColor(0, 0, 0, 0.8) with a 0.5 point thickness. The cut marks should be short lines (e.g., 0.2 inches long) extending outward from the grid edge.
+3. Exact Placement of Marks:
+Left & Right Edges (Row Indicators): At every horizontal intersection point where a row begins/ends (including the very top and bottom corners), draw a 0.2-inch horizontal line extending outward from the Left grid boundary (X=0.5 inches) and the Right grid boundary (X=12.5 inches).
+Top & Bottom Edges (Column Indicators): At every vertical intersection point where a column begins/ends (including the outer corners), draw a 0.2-inch vertical line extending outward from the Top grid boundary (Y=18.5 inches) and the Bottom grid boundary (Y=0.5 inches).
+4. Maintain the padding layout:
+The 12x18 inch grid must still be perfectly centered vertically (starting 0.5 inches from the top of the 19-inch page, and ending 0.5 inches from the bottom).
+The CMYK Black Order ID label should still be placed at the bottom center, well below the bottom crop marks (e.g., Y=0.25 inches).
+Please provide the updated code focusing on this perimeter-only crop mark implementation for all three layout variants (4x3, 3x2, and 3x3)."
