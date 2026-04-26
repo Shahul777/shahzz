@@ -1,0 +1,7 @@
+Variant 4: "4x6 Frame (9 per sheet)"
+Grid: 3 columns x 3 rows (Max 9 images).
+Outer Cell: 4 inches Wide x 6 inches High.
+Image Processing: Crop to a 3.7 (W) : 5.7 (H) aspect ratio. DO NOT rotate this variant.
+Inner Placement: Final image drawn at 3.7 inches W x 5.7 inches H.
+Offsets inside cell: X offset = +0.15 inches (from left of cell), Y offset = +0.15 inches (from bottom of cell).
+Please provide the updated app.py script. Ensure the dropdown UI now includes this fourth option and dynamically updates the 'Step 1' UI label to say '(up to 9 photos)' when this layout is selected."
