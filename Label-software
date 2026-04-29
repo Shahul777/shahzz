@@ -1,0 +1,22 @@
+Role: You are an expert Python developer specializing in Flask web applications and precise PDF manipulation (using PyMuPDF / fitz or pypdf).
+Context: I have an existing Flask application with various tools. I need to add a new tool that processes Amazon shipping label PDFs uploaded by users.
+The Problem: Users upload multiple A4-sized PDF files containing Amazon shipping labels. Currently, each page is divided vertically into two halves:
+Left Half: Contains up to 2 shipping labels (stacked vertically).
+Right Half: Contains the corresponding tax invoices (stacked vertically).
+(Note: Sometimes an input page might only have 1 label on the left and 1 invoice on the right, leaving the bottom blank. The geometric split remains exactly the same).
+The Goal: I want to discard all invoices (the right halves) to save paper. I need to extract only the left halves (the shipping labels) from all uploaded PDFs, and pack them tightly onto new A4 pages. By placing the extracted left half of Page 1 onto the left side of a new A4 page, and the extracted left half of Page 2 onto the right side of that same new A4 page, the final output will beautifully fit 4 shipping labels per physical A4 sheet.
+Technical Requirements:
+Multiple Uploads: The Flask route must accept multiple PDF file uploads simultaneously from a form (request.files.getlist).
+Combine & Process: Merge all uploaded PDFs in the order they were uploaded to process them as a single document flow.
+Dimension Calculation (A4 Size):
+Standard A4 dimensions in points: width = 595.28, height = 841.89.
+Original Left Half Box: (0, 0, 297.64, 841.89)
+Transformation Logic (The "Cut and Paste"):
+Iterate through every page of the combined input PDFs.
+Extract/crop the left half of each page.
+Create a new blank A4 PDF document.
+Take the first extracted left half and place it on the left half (0, 0, 297.64, 841.89) of the new Page 1.
+Take the second extracted left half and place it on the right half (297.64, 0, 595.28, 841.89) of the new Page 1.
+Continue this process, creating a new page for every 2 extracted halves.
+Handle odd numbers of total pages gracefully (the final output page will just have a left half filled and the right half blank).
+Output: Save the final combined and reformatted PDF to an in-memory buffer (io.BytesIO) and return it as a downloadable file to the user using Flask's send_file with a proper filename like optimized_shipping_labels.pdf.
