@@ -1,0 +1,30 @@
+Role: You are an expert Python developer specializing in Flask web applications and precise PDF manipulation using PyMuPDF (fitz).
+Context: I have an existing Flask application with various tools. I need to add a new tool that processes Amazon shipping label PDFs uploaded by users.
+The Problem: Users upload multiple A4-sized PDF files containing Amazon shipping labels. Currently, each page is divided into 4 quadrants:
+Top-Left: Shipping Label 1
+Top-Right: Tax Invoice 1
+Bottom-Left: Shipping Label 2
+Bottom-Right: Tax Invoice 2
+(Note: Sometimes an input page might only have 1 label/invoice at the top, leaving the bottom blank).
+The Goal: 1. Discard all invoices (the right halves) to save paper.
+2. Extract the left halves (the shipping labels) from all uploaded PDFs, and pack them tightly onto new A4 pages (placing one left-half on the left of a new A4 page, and the next left-half on the right of that same A4 page).
+3. NEW REQUIREMENT: I need to stamp a small, sequential numeric identifier (1, 2, 3, etc.) on each individual shipping label.
+Technical Requirements:
+Multiple Uploads: The Flask route must accept multiple PDF file uploads simultaneously from a form (request.files.getlist).
+Combine & Process: Merge all uploaded PDFs in the order they were uploaded.
+Dimension Calculation (A4 Size):
+Standard A4 dimensions in points: width = 595.28, height = 841.89.
+Original Left Half Box to crop: (0, 0, 297.64, 841.89)
+Transformation Logic (The "Cut and Paste"):
+Extract/crop the left half of each page from the combined PDF.
+Create a new blank A4 PDF document.
+Place the first extracted left half on the left half (0, 0, 297.64, 841.89) of the new Page 1.
+Place the second extracted left half on the right half (297.64, 0, 595.28, 841.89) of the new Page 1.
+Continue this process for all pages.
+Sequential Number Stamping (Crucial):
+Each left half actually contains two labels (Top Label and Bottom Label).
+You must iterate through the labels and insert a sequential text number (1, 2, 3...) onto the PDF using fitz.
+Placement: The number needs to be stamped in the blank space located in the lower-middle-right section of the label (below the "Customer Self Declaration" table and above the bottom routing barcode box like "MASA MMAA").
+Provide the stamping logic using easily configurable X and Y coordinate variables (e.g., LABEL_1_TEXT_X, LABEL_1_TEXT_Y) so I can fine-tune the exact pixel placement later.
+Make the font size small and subtle (e.g., fontsize 12 or 14).
+Output: Save the final combined and reformatted PDF to an in-memory buffer (io.BytesIO) and return it as a downloadable file to the user using Flask's send_file with a filename like optimized_shipping_labels.pdf.
