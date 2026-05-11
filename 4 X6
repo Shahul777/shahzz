@@ -1,7 +1,6 @@
-Variant 4: "4x6 Frame (9 per sheet)"
-Grid: 3 columns x 3 rows (Max 9 images).
-Outer Cell: 4 inches Wide x 6 inches High.
-Image Processing: Crop to a 3.7 (W) : 5.7 (H) aspect ratio. DO NOT rotate this variant.
-Inner Placement: Final image drawn at 3.7 inches W x 5.7 inches H.
-Offsets inside cell: X offset = +0.15 inches (from left of cell), Y offset = +0.15 inches (from bottom of cell).
-Please provide the updated app.py script. Ensure the dropdown UI now includes this fourth option and dynamically updates the 'Step 1' UI label to say '(up to 9 photos)' when this layout is selected."
+Right now, when I place my images into the 4x3 frames, it leaves white space on the sides if the image is too tall (portrait). I want it to behave exactly like Canva. Instead of just resizing to fit inside the frame with white space, it needs to 'Crop to Fill'.
+​Please update the code so 
+that it completely fills the
+target frame without distorting or
+stretching the image. It should scale 
+the image proportionally so the shortest side fills the frame, and then center-crop the excess on the longer side (like CSS object-fit: cover). If we are using the PIL/Pillow library, please implement this using ImageOps.fit()
