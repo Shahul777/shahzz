@@ -1,0 +1,194 @@
+
+AMAZON MANUAL CAMPAIGN SETUP
+PRODUCT: MINI SIZE POLAROID PHOTO PRINTS
+
+==================================================
+CAMPAIGN 1 — EXACT MATCH WINNERS
+==================================================
+
+Campaign Name:
+SP_Exact_Winners_Polaroid
+
+Match Type:
+EXACT
+
+Bid Strategy:
+Dynamic bids - down only
+
+Suggested Keywords:
+
+[polaroid photos]
+[polaroids]
+[polaroid]
+[mini photo print]
+[polaroid photos customized]
+[polaroids pics customized]
+[photos print]
+[photo print]
+[customised mini photo prints]
+[polaroid pictures]
+[mini polaroid photos]
+[photo cards]
+[polaroids customised]
+
+==================================================
+CAMPAIGN 2 — PHRASE MATCH EXPANSION
+==================================================
+
+Campaign Name:
+SP_Phrase_Expansion_Polaroid
+
+Match Type:
+PHRASE
+
+Suggested Keywords:
+
+"polaroid photos"
+"mini polaroid photos"
+"customized polaroid photos"
+"photo print"
+"mini photo print"
+"polaroid pictures"
+"photo cards"
+"customised mini photo prints"
+
+==================================================
+CAMPAIGN 3 — BROAD MATCH DISCOVERY
+==================================================
+
+Campaign Name:
+SP_Broad_Discovery_Polaroid
+
+Match Type:
+BROAD
+
+Suggested Keywords:
+
+polaroid photos
+mini polaroid
+photo print
+custom photo prints
+mini photo prints
+photo cards
+
+==================================================
+NEGATIVE KEYWORDS — PHRASE MATCH
+==================================================
+
+album
+scrapbook
+magazine
+led
+bts photocards
+photo album
+4x6 album
+
+==================================================
+NEGATIVE KEYWORDS — EXACT MATCH
+==================================================
+
+[photo album]
+[mini photo album]
+[album for photos collection]
+[photo album 4x6]
+[bts photocards]
+
+==================================================
+BEST ASIN TARGETS
+==================================================
+
+b0g44lftv9
+b0b6wsptlf
+b0d1g66xwr
+b0fd3drqpk
+
+==================================================
+HIGH PRIORITY KEYWORDS FOR HIGHER BIDS
+==================================================
+
+polaroid photos
+polaroid
+polaroids
+photos print
+customised mini photo prints
+polaroid pictures
+polaroids customised
+
+==================================================
+KEYWORDS TO REDUCE BID OR PAUSE
+==================================================
+
+polaroid print
+mini photo prints
+customize mini photo
+photo album
+mini photo album
+
+==================================================
+PLACEMENT SETTINGS
+==================================================
+
+Top of Search Placement Adjustment:
+20% to 40%
+
+Apply ONLY to:
+- Exact match winner campaign
+- Keywords with ACOS below 12%
+
+==================================================
+BUDGET SPLIT RECOMMENDATION
+==================================================
+
+Exact Match Winners: 60%
+Phrase Match Expansion: 25%
+Broad Match Discovery: 10%
+Product Targeting: 5%
+
+==================================================
+IMPORTANT STRATEGY NOTES
+==================================================
+
+1. Use separate campaigns for Exact, Phrase, and Broad.
+2. Do NOT mix match types in one ad group.
+3. Add negative keywords immediately.
+4. Review search term report weekly.
+5. Increase bids only for profitable keywords.
+6. Pause keywords spending heavily without orders.
+7. Keep Broad bids lower than Exact bids.
+8. Product targeting should be a separate campaign.
+
+==================================================
+TOP PERFORMING KEYWORDS FROM AUTO CAMPAIGN
+==================================================
+
+Keyword: polaroid photos
+ACOS: 13.71%
+ROAS: 7.30
+
+Keyword: polaroids
+ACOS: 10.96%
+ROAS: 9.13
+
+Keyword: polaroid
+ACOS: 9.86%
+ROAS: 10.14
+
+Keyword: mini photo print
+ACOS: 10.60%
+ROAS: 9.44
+
+Keyword: photos print
+ACOS: 6.60%
+ROAS: 15.14
+
+Keyword: customised mini photo prints
+ACOS: 6.74%
+ROAS: 14.83
+
+Keyword: polaroids customised
+ACOS: 4.67%
+ROAS: 21.43
+
+==================================================
+END OF FILE
+==================================================
