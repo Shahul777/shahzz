@@ -1,0 +1,90 @@
+You are an expert full-stack Python Flask developer. I need you to extend my existing Flask application, which uses SQLite for its database. The application serves as an internal business tool for my custom print brand, "Basa". 
+
+I need you to generate clean, robust, and completely functional Python (Flask), SQLite schemas, and frontend (HTML/CSS/JS using Bootstrap 5 and Chart.js via CDN) code to implement two core modules: a **Comprehensive Sales Insights Dashboard** and an **Inventory/Stock Tracking System for Pen Print**.
+
+### CRITICAL REQUIREMENTS FOR CODE GENERATION
+1. Provide COMPLETE, production-ready code blocks. Do not use comments like `# ... existing code ...` or `// TODO`. Rewrite the entire affected file or route structure cleanly.
+2. Implement robust error handling and input validation on both frontend and backend.
+3. Ensure the UI is built for a desktop/big-screen layout, maximizing screen real estate for charts and data grids with a clean, premium, data-dense look.
+
+---
+
+## MODULE 1: DATABASE SCHEMA UPDATES
+
+Update or create the following SQLite schemas. To ensure historical data integrity when global costs change (shipping, base board cost), the snapshot values must be written directly into the daily sales entry row at the exact moment of creation.
+
+```sql
+-- Global configuration variables (Stores current active rates)
+CREATE TABLE IF NOT EXISTS global_settings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    base_board_cost REAL DEFAULT 5.0,
+    shipping_fulfillment_cost REAL DEFAULT 70.0,
+    daily_ad_spend REAL DEFAULT 300.0,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Daily Sales Log
+CREATE TABLE IF NOT EXISTS sales_records (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    record_date DATE UNIQUE NOT NULL,
+    revenue REAL NOT NULL,
+    orders_count INTEGER NOT NULL,
+    boards_count INTEGER NOT NULL,
+    pen_print_cost REAL NOT NULL,
+    other_charges REAL DEFAULT 0.0,
+    is_holiday INTEGER DEFAULT 0, -- 1 for True, 0 for False
+    notes TEXT,
+    -- Historical Snapshots preserved at the time of entry
+    snapshot_base_board_cost REAL NOT NULL,
+    snapshot_shipping_cost REAL NOT NULL,
+    snapshot_ad_spend REAL NOT NULL,
+    net_profit REAL NOT NULL, -- Calculated automatically before insert
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Pen Print Stock Tracking Ledger
+CREATE TABLE IF NOT EXISTS stock_ledger (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    transaction_date DATE NOT NULL,
+    transaction_type TEXT NOT NULL, -- 'ADDITION', 'WITHDRAWAL', 'AUTO_SALE_DEDUCTION', 'MANUAL_CORRECTION'
+    quantity INTEGER NOT NULL,
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Stock Configuration Meta
+CREATE TABLE IF NOT EXISTS stock_settings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tracking_start_date DATE NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+MODULE 2: BACKEND LOGIC & ENGINE (Python/Flask)
+Implement the following logic inside your controller/routes file:
+1. Calculation Engine
+Net Profit Formula: Net Profit = Revenue - (Orders Count * snapshot_shipping_cost) - (Boards Count * snapshot_base_board_cost) - Pen Print Cost - snapshot_ad_spend - Other Charges.
+If a day is marked as a Holiday, the form automatically forces Revenue = 0, Orders Count = 0, Boards Count = 0, Pen Print Cost = 0, but still subtracts the snapshot_ad_spend (and any other_charges) to accurately reflect negative profit/loss for that day.
+2. Multi-Date Entry Splitting Logic
+In the daily entry interface, if the user selects a date range spanning exactly two days (e.g., a weekend block like May 9 and May 10 combined), the backend must automatically divide the inputted revenue, orders_count, boards_count, and pen_print_cost exactly in half (by 2).
+It must then insert two distinct database records (one for each date), applying the half-values to each day while preserving global snapshot costs intact on both entries.
+3. Analytics & Date Filtering Engine
+Create an API endpoint or template context builder that calculates the following metrics for any requested date range:
+Total Revenue, Total Net Profit, Total Orders, Total Boards Sold, Overall Profit Margin %.
+Averages to Compute Dynamically: Average orders per day, average boards sold per day, average cost per day, average revenue per order, average profit per order, and average boards per order.
+Pre-set Date Filters to Support: Present Month, Past Month, Present Year, Past Year, Lifetime (Start date to till date), and a Custom Date Range selector.
+4. Inventory / Stock Calculation Logic
+The system tracks the physical count of physical boards stored at the "Pen Print" facility.
+Current Stock Balance Formula: Start with total allocations from ADDITION transactions, subtract total values from WITHDRAWAL transactions, subtract all boards_count logged under sales_records where record_date >= tracking_start_date, and adjust by any MANUAL_CORRECTION records.
+Provide an override feature allowing the user to input the true physical board count if audited, creating a MANUAL_CORRECTION log to realign the calculation engine seamlessly.
+MODULE 3: FRONTEND UI/UX & DASHBOARD (HTML/CSS/JS)
+Build a clean, comprehensive single-page layout utilizing standard grid mechanics for an open, dense dashboard experience.
+1. Main Dashboard View (Full-Width Grid)
+Top Metric Ribbon: Large, readable numerical cards showing dynamic totals (Revenue, Profit, Margin %, Total Boards, Total Orders).
+Secondary Analytics Grid: Highlighting the business health averages (Revenue per order, Profit per order, Boards per order, Daily operating costs).
+Data Visualization Canvas: Clear line charts or bars tracking daily/weekly progress across three major parameters: Boards Sold, Profit for the Period, and Revenue for the Period.
+2. Intelligent Data Entry Module
+An intuitive modal popup or slide-out menu that toggles between a Standard Sale Day Entry, a Holiday Switch (which silences transaction items), and a Date Range Selector.
+Integrate clean error messaging if an entry is attempted on a pre-existing date.
+3. Inventory & Stock Center
+A dedicated tab or card layout that explicitly highlights the current physical item balance left inside the Pen Print facility, backed by a visual warning badge if stock falls low.
+Includes a quick form to record positive adjustments (bulk supply deliveries), negative adjustments (damaged/returned goods), or a complete override reset to realign the virtual tracking tool with physical realities.
+Please generate the complete source code, separating the backend Python structures, SQLite execution configurations, and HTML/JS code into structured files ready for immediate integration.
