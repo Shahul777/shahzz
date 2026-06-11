@@ -1,0 +1,45 @@
+You are an expert Python software engineer specializing in print-shop automation, pre-press software, and vector geometry. 
+
+I am building a Python Flask application that automates "imposition" (placing multiple copies, or "ups", of a single image onto a larger print sheet). The application must support both standard square/block grids and optimized round honeycomb (staggered) nesting grids based on user selections.
+
+Please write the complete backend Python logic (or a Flask blueprint/service module) that takes a single uploaded image, processes user configuration parameters, and generates a print-ready canvas.
+
+### 1. User Configurations (Inputs):
+- image_file: The source image/sticker asset (PNG/JPEG).
+- sticker_diameter_inches: Float (e.g., 1.0, 1.5, 2.0, 2.5, 3.0).
+- sheet_size: String selection ("A3", "12x18", "13x19").
+- yield_type: String selection ("grid", "honeycomb").
+- edge_margin_inches: Float (Default: 0.25 for plotter/gripper tracking clearance).
+- item_gap_inches: Float (Default: 0.08 cutting buffer between stickers).
+
+### 2. Sheet Dimensions Reference:
+- "A3": 11.69 x 16.54 inches
+- "12x18": 12.00 x 18.00 inches
+- "13x19": 13.00 x 19.00 inches
+
+### 3. Spatial Math & Imposition Logic to Implement:
+The code must calculate the total available printable width and height by subtracting twice the `edge_margin_inches` from the selected sheet size. 
+
+Implement both math engines to automatically test if running the rows horizontally (along the width) or vertically (along the length) yields more total pieces, and choose the higher-yielding orientation dynamically:
+
+#### A. Standard Grid Logic:
+- Calculate step size: `step = sticker_diameter_inches + item_gap_inches`.
+- Max items per dimension = `floor((usable_dimension + item_gap_inches) / step)`.
+- Loop through standard X and Y coordinates to place images.
+
+#### B. Honeycomb / Staggered Nesting Logic (Crucial for Round Stickers):
+- The horizontal step size between centers in a row remains: `step_x = sticker_diameter_inches + item_gap_inches`.
+- Because rows nest into each other's curves, the vertical step height between row centers drops down using the geometric formula: 
+  `step_y = step_x * sqrt(3) / 2`  (approximately `step_x * 0.866`).
+- Row Alternation: 
+  - Odd rows (1, 3, 5...) start at an X-offset of 0.
+  - Even rows (2, 4, 6...) must be staggered horizontally by shifting their starting X-coordinate by exactly `step_x / 2`. 
+  - Note: Even rows will hold exactly one less sticker if the shifted end slips outside the usable boundary. The code must handle this boundary checking perfectly.
+
+### 4. Output Generation Requirements:
+- Use Pillow (PIL) or OpenCV to handle the canvas construction.
+- Create a blank high-resolution canvas matching the selected sheet size at 300 DPI (dots per inch). Convert all inch dimensions to pixels (`pixels = inches * 300`).
+- The entire calculated block of stickers must be cleanly CENTERED on the final canvas so that the remaining extra borders are split evenly on all sides, leaving clean room for plotter registration marks.
+- Save the final result as a high-quality PDF or print-ready PNG, and return a dictionary containing metadata: `{"total_ups": int, "layout_orientation": string, "file_path": string}`.
+
+Provide clean, modular, production-grade Python code with clear comments explaining the honeycomb calculation logic.
