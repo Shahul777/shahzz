@@ -1,0 +1,26 @@
+You are an expert Python pre-press software engineer specializing in print automation. 
+
+Extend our existing Python Flask imposition script (which calculates Grid and Honeycomb sticker layouts on A3, 12x18, and 13x19 sheets) to automatically generate standard industry "Registration Marks" in the four corners of the output file. These marks are required by optical sensors on digital vinyl cutters (like Graphtec, Summa, or Roland plotters) to track and align the kiss-cut paths.
+
+### 1. Registration Mark Specifications:
+- Type: Implement standard 90-degree "L-type" registration marks (or solid 5mm circular dots, choose the most reliable geometric vector representation).
+- Dimensions: The lines of the L-mark should be 0.4 inches (10mm) long and 0.04 inches (1mm) thick, colored in solid registration black (CMYK: 100, 100, 100, 100 or RGB: 0, 0, 0).
+- Placement: Position one mark precisely in each of the four corners of the printable boundary (just inside the 0.25-inch edge margin). They must never overlap or touch the nested stickers.
+
+### 2. Output File Structure Requirements:
+To make this file usable for commercial print-and-cut workflows, the script must generate a production-ready output in one of the following formats (provide clean options for both):
+
+#### Option A: Single Layered PDF (Highly Recommended)
+Using a library like `reportlab` or an advanced vector generator, output a single PDF containing two distinct vector layers:
+1. "Print Layer": Contains the high-resolution CMYK/RGB sticker artwork images, along with the 4 corner registration marks.
+2. "Cut Layer": Contains *only* the registration marks and the perfect vector circles (hairline paths, 0.25pt width, usually colored in Spot Magenta/Cyan) indicating exactly where the plotter blade should score.
+
+#### Option B: Dual-File Output (Fallback)
+If a layered PDF is mathematically too complex for a single canvas engine, generate two separate high-resolution (300 DPI) files:
+1. `[filename]_PRINT.pdf` (or PNG): Contains the centered sticker images + the 4 corner registration marks.
+2. `[filename]_CUT.pdf` (or DXF/SVG): Contains a transparent background with *only* the 4 matching corner registration marks and the black vector cut circles in the exact same spatial coordinates.
+
+### 3. Spatial Centering Adjustment:
+When centering the sticker cluster block on the canvas, the code must calculate the spacing *including* the boundary box of the registration marks. Ensure the final layout guarantees that the machine's laser eye has at least a 0.5-inch clear, unprinted buffer zone around the registration marks so it doesn't get confused by the sticker artwork during the optical scan.
+
+Provide the complete python backend logic, handling the DPI-to-pixel coordinate scaling precisely for the selected board sizes (A3, 12x18, 13x19).
