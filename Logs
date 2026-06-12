@@ -1,0 +1,43 @@
+[obscured]91,286 INFO    OCR removed: G:\PIXLUV\ship-13-6-image\Rutuja-3526\cb07e4c9-2ad6-5a33-51f0-bc5f6b06c4a6.jpg
+[obscured],286 INFO    OCR removed: G:\PIXLUV\ship-13-6-image\Rutuja-3526\ebb4d813-c6d0-c880-a16b-19187c806594.jpg
+[obscured]287 INFO    OCR removed: G:\PIXLUV\ship-13-6-image\S. Deepika-7965\990f9c3e-d65c-59bb-094d-8c5a0448b0be.jpg
+[obscured]288 INFO    OCR removed: G:\PIXLUV\ship-13-6-image\S. Deepika-7965\b0e3b721-cd5f-a443-6c9a-ab7ccc253342.jpg
+[obscured]290 INFO    OCR removed: G:\PIXLUV\ship-13-6-image\S. Deepika-7965\bc693d8e-0b02-ff2c-1160-310c4bbdce2e.jpg
+[obscured]291 INFO    OCR removed: G:\PIXLUV\ship-13-6-image\S. Deepika-7965\c55480f4-ca04-fa24-dd94-4657b4ba1292.jpg
+[obscured],292 INFO    OCR removed: G:\PIXLUV\ship-13-6-image\S. Deepika-7965\f0f7214b-f0e0-c0d4-b50f-f469cbffe0ab.jpg
+2026-0[obscured]1,292 INFO    OCR removed: G:\PIXLUV\ship-13-6-image\Sruthi -3143\6708651b-58d0-68e0-1945-e012e23df1c2.jpg
+2026-06-13 00:01:01,293 INFO    OCR removed: G:\PIXLUV\ship-13-6-image\Sruthi -3143\76304f35-7172-65f6-102a-9abd06f1fe9d.jpg
+2026-06-13 00:01:01,294 INFO    OCR removed: G:\PIXLUV\ship-13-6-image\Sruthi -3143\9b9cfe36-7514-bcbb-2547-bc1d1ce368c9.jpg
+2026-06-13 00:01:01,295 INFO    OCR removed: G:\PIXLUV\ship-13-6-image\Sruthi -3143\ba7216c3-0dd0-b18f-c835-4df509833d23.jpg
+2026-06-13 00:01:01,296 INFO    OCR removed: G:\PIXLUV\ship-13-6-image\Sruthi -3143\ef299e0e-0ff1-b5bc-208d-e921d281e415.jpg
+2026-06-13 00:03:31,400 INFO    127.0.0.1 - - [13/Jun/2026 00:03:31] "POST /polaroid/base-folder HTTP/1.1" 200 -
+2026-06-13 00:03:31,412 INFO    127.0.0.1 - - [13/Jun/2026 00:03:31] "GET /polaroid/ship-folders HTTP/1.1" 200 -
+2026-06-13 00:03:33,800 INFO    127.0.0.1 - - [13/Jun/2026 00:03:33] "POST /polaroid/start HTTP/1.1" 200 -
+2026-06-13 00:03:34,066 INFO    127.0.0.1 - - [13/Jun/2026 00:03:34] "GET /polaroid/progress/pol_1781289213799 HTTP/1.1" 200 -
+2026-06-13 00:03:36,158 ERROR   Preview: skipping corrupted image G:\PIXLUV\ship-13-6-image\Aanchal-7540\5f3ca717-5828-438f-bdeb-a43dc752c5c5.jpg
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\pixluv-final\imageplacer.py", line 365, in prepare_preview
+    img = img.rotate(-90, expand=True)
+  File "C:\Users\Lenovo\Desktop\pixluv-final\.venv\Lib\site-packages\PIL\Image.py", line 2519, in rotate
+    return self.transpose(
+           ^^^^^^^^^^^^^^^
+        Transpose.ROTATE_90 if angle == 90 else Transpose.ROTATE_270
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+  File "C:\Users\Lenovo\Desktop\pixluv-final\.venv\Lib\site-packages\PIL\Image.py", line 3110, in transpose
+    self.load()
+    ^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\pixluv-final\.venv\Lib\site-packages\PIL\ImageFile.py", line 409, in load
+    raise OSError(msg)
+OSError: image file is truncated (4 bytes not processed)
+2026-06-13 00:03:38,075 INFO    127.0.0.1 - - [13/Jun/2026 00:03:38] "GET /polaroid/preview-img/pol_1781289213799/prev_o0_p0_00.jpg HTTP/1.1" 200 -
+2026-06-13 00:03:38,388 INFO    127.0.0.1 - - [13/Jun/2026 00:03:38] "GET /polaroid/preview-img/pol_1781289213799/prev_o0_p0_07.jpg HTTP/1.1" 200 -
+2026-06-13 00:03:38,391 INFO    127.0.0.1 - - [13/Jun/2026 00:03:38] "GET /polaroid/preview-img/pol_1781289213799/prev_o0_p0_09.jpg HTTP/1.1" 200 -
+2026-06-13 00:03:38,405 INFO    127.0.0.1 - - [13/Jun/2026 00:03:38] "GET /polaroid/preview-img/pol_1781289213799/prev_o0_p0_17.jpg HTTP/1.1" 200 -
+2026-06-13 00:03:38,406 INFO    127.0.0.1 - - [13/Jun/2026 00:03:38] "GET /polaroid/preview-img/pol_1781289213799/prev_o0_p0_16.jpg HTTP/1.1" 200 -
+2026-06-13 00:03:38,706 INFO    127.0.0.1 - - [13/Jun/2026 00:03:38] "GET /polaroid/preview-img/pol_1781289213799/prev_o0_p0_12.jpg HTTP/1.1" 200 -
+2026-06-13 00:03:38,708 INFO    127.0.0.1 - - [13/Jun/2026 00:03:38] "GET /polaroid/preview-img/pol_1781289213799/prev_o0_p0_14.jpg HTTP/1.1" 200 -
+2026-06-13 00:03:38,711 INFO    127.0.0.1 - - [13/Jun/2026 00:03:38] "GET /polaroid/preview-img/pol_1781289213799/prev_o0_p0_15.jpg HTTP/1.1" 200 -
+2026-06-13 00:03:38,722 INFO    127.0.0.1 - - [13/Jun/2026 00:03:38] "GET /polaroid/preview-img/pol_1781289213799/prev_o0_p0_13.jpg HTTP/1.1" 200 -
+2026-06-13 00:03:38,724 INFO    127.0.0.1 - - [13/Jun/2026 00:03:38] "GET /polaroid/preview-img/pol_1781289213799/prev_o0_p0_10.jpg HTTP/1.1" 200 -
+[obscured]                      127.0.0.1 - - [13/Jun/2026 00:03:38] "GET /polaroid/preview-img/pol_1781289213799/prev_o0_p0_06.jpg HTTP/1.1" 200 -
