@@ -1,0 +1,30 @@
+26-07-01 21:59:12,349 amazon_download ORDER 17/20: 171-8824804-7994742  (Prabhjot kaur, 3x3, Thu)
+2026-07-01 21:59:12,349 INFO     ORDER 17/20: 171-8824804-7994742  (Prabhjot kaur, 3x3, Thu)
+2026-07-01 21:59:45,994 amazon_download Download failed for order 171-8824804-7994742 item 65011784692602: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("button:has-text('Download zip'), a:has-text('Download zip'), input[value*='Download zip'], span:has-text('Download zip')").first
+    - locator resolved to <button type="button" class="button">…</button>
+  - attempting click action
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - performing click action
+    - click action done
+    - waiting for scheduled navigations to finish
+
+2026-07-01 21:59:45,994 ERROR    Download failed for order 171-8824804-7994742 item 65011784692602: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("button:has-text('Download zip'), a:has-text('Download zip'), input[value*='Download zip'], span:has-text('Download zip')").first
+    - locator resolved to <button type="button" class="button">…</button>
+  - attempting click action
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - performing click action
+    - click action done
+    - waiting for scheduled navigations to finish
+
+2026-07-01 21:59:48,642 amazon_download Failed to download for prabhjot_kaur-4742-(24)-3x3
+2026-07-01 21:59:48,642 WARNING  Failed to download for prabhjot_kaur-4742-(24)-3x3
